@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { borders } from "../../utils/css-const.utils";
 
 export const ExercisesContainer = styled.div`
   display: flex;
@@ -14,13 +13,35 @@ export const ExerciseInfoContainer = styled.div`
 `;
 
 export const ExerciseStatsContainer = styled.div`
-  background-color: ${(props) => props.theme.color.sectionBackground};
-  min-height: 400px;
+  display: flex;
 
+  &.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  min-height: 400px;
+  padding: 20px;
   border: ${(props) => props.theme.borders};
   border-radius: 8px;
 
-  padding: 20px;
+  background-color: ${(props) => props.theme.color.sectionBackground};
+`;
+
+export const NoExerciseContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  i {
+    font-size: 4rem;
+    color: ${(props) => props.theme.color.blue};
+  }
+
+  .grey {
+    color: ${(props) => props.theme.color.grey};
+  }
 `;
 
 export const ExerciseStats = styled.div``;

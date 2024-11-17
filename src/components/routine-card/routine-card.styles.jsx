@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const fadeOut = keyframes`
+const fadeIn = keyframes`
 from {
   opacity: 0;
   transform: translateX(-10px);
@@ -24,7 +24,7 @@ export const RoutineOptionsContainer = styled.div`
 
   background-color: ${(props) => props.theme.color.sectionBackground};
 
-  animation: ${fadeOut} 0.8s;
+  animation: ${fadeIn} 0.8s;
 
   span:hover {
     cursor: pointer;

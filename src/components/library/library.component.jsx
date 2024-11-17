@@ -39,7 +39,7 @@ export default function Library({ page, handleExerciseClick }) {
             key={exercise.title}
             page={page}
             exercisesList={exercisesList}
-            handleExerciseClick={() => onExerciseClick(exercise)}
+            handleExerciseClick={() => onExerciseClick(page, exercise)}
           />
         ))}
       </ExercisessContainer>

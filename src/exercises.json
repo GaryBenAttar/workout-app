@@ -2,31 +2,37 @@
   {
     "title": "Push Ups",
     "muscles": ["Chest", "Triceps"],
+    "equipments": [],
     "imageUrl": "https://i.ibb.co/gFhmPyQ/push-ups.png"
   },
   {
     "title": "Pull Ups",
     "muscles": ["Lats", "Biceps"],
+    "equipments": ["Pull Up bar"],
     "imageUrl": "https://i.ibb.co/3swQzx5/pull-ups.png"
   },
   {
     "title": "Squats",
     "muscles": ["Quadriceps", "Glutes"],
+    "equipments": ["Barbell"],
     "imageUrl": "https://i.ibb.co/D4GRW1x/squats.png"
   },
   {
     "title": "Biceps Curls",
     "muscles": ["Biceps"],
+    "equipments": ["Dumbells", "Barbell"],
     "imageUrl": "https://i.ibb.co/qk30qQy/biceps-curls.png"
   },
   {
     "title": "Triceps Extension",
     "muscles": ["Triceps"],
+    "equipments": ["Dumbells"],
     "imageUrl": "https://i.ibb.co/p0ZwPYk/triceps-extension.png"
   },
   {
     "title": "Dead Lift",
     "muscles": ["Hamstrings", "Lower Back", "GLutes"],
+    "equipments": ["Barbell"],
     "imageUrl": "https://i.ibb.co/xg7w3mz/deadlifts.png"
   }
 ]

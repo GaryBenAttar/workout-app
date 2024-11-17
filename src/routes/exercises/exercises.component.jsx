@@ -5,6 +5,7 @@ import {
   ExerciseInfoContainer,
   ExercisesContainer,
   ExerciseStatsContainer,
+  NoExerciseContainer,
 } from "./exercises.styles";
 import ExerciseInfoCard from "../../components/exercise-info-card/exercise-info-card.component";
 export default function Exercises() {
@@ -15,9 +16,17 @@ export default function Exercises() {
     <ExercisesContainer>
       <ExerciseInfoContainer>
         <h2>Exercises</h2>
-        <ExerciseStatsContainer>
+        <ExerciseStatsContainer
+          className={`${exercise === "" ? "centered" : ""}`}
+        >
           {exercise === "" ? (
-            <div>Select Exercise</div>
+            <NoExerciseContainer>
+              <i className="fa-solid fa-dumbbell"></i>
+              <span>Select Exercise</span>
+              <span className="grey">
+                Click on an exercise to see statistics about it.
+              </span>
+            </NoExerciseContainer>
           ) : (
             <ExerciseInfoCard exercise={exercise} />
           )}

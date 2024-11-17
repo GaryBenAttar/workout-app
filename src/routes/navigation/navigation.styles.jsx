@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { ReactComponent as Logo } from "../../assets/app_logo.svg";
+
 export const NavigationContainer = styled.div`
-  background-color: ${(props) => props.theme.color.sectionBackground};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 
   min-width: 250px;
   min-height: 100vh;
@@ -11,12 +16,20 @@ export const NavigationContainer = styled.div`
   margin-right: 50px;
 
   border-right: ${(props) => props.theme.borders};
+  background-color: ${(props) => props.theme.color.sectionBackground};
+`;
+
+export const LogoStyled = styled(Logo)`
+  width: 150px;
+  height: 50px;
 `;
 
 export const NavigationLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  width: 100%;
 `;
 
 export const NavLink = styled(Link)`

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import {
+  LogoStyled,
   NavigationContainer,
   NavigationLinks,
   NavLink,
@@ -11,9 +12,18 @@ import {
 
 export default function Navigation() {
   const [activeLink, setActiveLink] = useState("feed");
+
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    setActiveLink("feed");
+    navigate("/");
+  };
+
   return (
     <>
       <NavigationContainer>
+        <LogoStyled onClick={handleLogoClick} />
         {/* <SearchUserContainer>
           <i className="fa-solid fa-magnifying-glass"></i>
           <SearchUserInput placeholder="Search User" type="text" />
