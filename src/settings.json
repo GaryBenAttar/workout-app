@@ -1,0 +1,44 @@
+[
+  {
+    "name": "profile",
+    "icon": "user",
+    "settings": [
+      {
+        "name": "picture",
+        "options": []
+      },
+      { "name": "name", "options": [] },
+      { "name": "bio", "options": [] }
+    ]
+  },
+  {
+    "name": "account",
+    "icon": "lock",
+    "settings": [
+      { "name": "private profile", "options": ["On", "Off"] },
+      { "name": "change password", "options": [] }
+    ]
+  },
+  {
+    "name": "subsciptions",
+
+    "settings": [
+      { "name": "current subscription", "options": [] },
+      { "name": "change subscription", "options": [] }
+    ]
+  },
+  {
+    "name": "units",
+    "icon": "ruler",
+    "settings": [
+      { "name": "weight unit", "options": ["kg", "lbs"] },
+      { "name": "distance unit", "options": ["kilometers", "miles"] },
+      { "name": "body measurement unit", "options": ["cm", "inch"] }
+    ]
+  },
+  {
+    "name": "theme",
+    "icon": "moon",
+    "settings": [{ "name": "current theme", "options": ["Light", "Dark"] }]
+  }
+]

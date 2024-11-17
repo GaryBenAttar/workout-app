@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Push Ups",
+    "muscles": ["Chest", "Triceps"],
+    "imageUrl": "https://i.ibb.co/gFhmPyQ/push-ups.png"
+  },
+  {
+    "title": "Pull Ups",
+    "muscles": ["Lats", "Biceps"],
+    "imageUrl": "https://i.ibb.co/3swQzx5/pull-ups.png"
+  },
+  {
+    "title": "Squats",
+    "muscles": ["Quadriceps", "Glutes"],
+    "imageUrl": "https://i.ibb.co/D4GRW1x/squats.png"
+  },
+  {
+    "title": "Biceps Curls",
+    "muscles": ["Biceps"],
+    "imageUrl": "https://i.ibb.co/qk30qQy/biceps-curls.png"
+  },
+  {
+    "title": "Triceps Extension",
+    "muscles": ["Triceps"],
+    "imageUrl": "https://i.ibb.co/p0ZwPYk/triceps-extension.png"
+  },
+  {
+    "title": "Dead Lift",
+    "muscles": ["Hamstrings", "Lower Back", "GLutes"],
+    "imageUrl": "https://i.ibb.co/xg7w3mz/deadlifts.png"
+  }
+]
