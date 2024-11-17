@@ -1,38 +1,46 @@
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   ProfileContainer,
   UserContainer,
+  UserDetailsContainer,
+  UserEdit,
   UserInfoContainer,
+  UserSummaryContainer,
 } from "./profile.styles";
+
 import { SettingsContext } from "../../contexts/settings.context";
-import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/user.context";
+
+import UserImage from "../../assets/logo_panda.png";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { setActiveNavLink } = useContext(SettingsContext);
+  const { username, fullname, workouts } = useContext(UserContext);
 
   const handleEditProfile = () => {
     navigate("/settings");
   };
 
-  const { setActiveNavLink } = useContext(SettingsContext);
-
   useEffect(() => setActiveNavLink("profile"), []);
   return (
     <ProfileContainer>
       <UserContainer>
-        <img alt="user" />
+        <img alt="user" src={UserImage} />
         <UserInfoContainer>
-          <div>
-            <span>Username</span>
+          <UserEdit>
+            <span>{username}</span>
             <button onClick={handleEditProfile}>Edit Profile</button>
-          </div>
-          <div>
-            <span>Full Name</span>
-            <div>
+          </UserEdit>
+          <UserDetailsContainer>
+            <span>{fullname}</span>
+            <UserSummaryContainer>
               <span>Workouts</span>
-              <span>104</span>
-            </div>
-          </div>
+              <span>{workouts.length}</span>
+            </UserSummaryContainer>
+          </UserDetailsContainer>
         </UserInfoContainer>
       </UserContainer>
     </ProfileContainer>

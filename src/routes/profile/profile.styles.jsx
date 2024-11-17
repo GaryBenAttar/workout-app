@@ -18,10 +18,32 @@ export const UserContainer = styled.div`
   border-radius: 8px;
 
   background-color: ${(props) => props.theme.color.sectionBackground};
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
 `;
 
 export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 20px;
+`;
+
+export const UserEdit = styled.div`
+  display: flex;
   gap: 10px;
+`;
+
+export const UserDetailsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const UserSummaryContainer = styled.div`
+  display: flex;
+  gap: 5px;
 `;
