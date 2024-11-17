@@ -96,6 +96,8 @@ export const SocialInteractionContainer = styled.div`
   display: flex;
   width: 100%;
 
+  font-size: 1.2em;
+
   border-top: ${(props) => props.theme.borders};
 `;
 

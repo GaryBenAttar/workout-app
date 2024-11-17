@@ -15,7 +15,7 @@ export default function RoutineCard({ routine, handleEditRoutine }) {
   };
 
   return (
-    <>
+    <div>
       <RoutineCardContainer
         key={routine.id}
         onClick={() => setToggleEditOptions(!toogleEditOptions)}
@@ -24,13 +24,14 @@ export default function RoutineCard({ routine, handleEditRoutine }) {
       </RoutineCardContainer>
       {toogleEditOptions && (
         <RoutineOptionsContainer>
-          <span onClick={() => handleEditRoutine(routine)}>Edit</span>
-          <span onClick={() => handleDeleteRoutine(routine)}>
-            <i className="fa-solid fa-trash"></i>
+          <span onClick={() => handleEditRoutine(routine)}>
+            <i className="fa-solid fa-pen"></i> Edit Routine
           </span>
-          <span onClick={() => setToggleEditOptions(false)}>x</span>
+          <span onClick={() => handleDeleteRoutine(routine)}>
+            <i className="fa-solid fa-trash"></i> Delete Routine
+          </span>
         </RoutineOptionsContainer>
       )}
-    </>
+    </div>
   );
 }

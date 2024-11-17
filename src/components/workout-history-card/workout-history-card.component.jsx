@@ -26,7 +26,7 @@ export default function WorkoutHistoryCard({ workout }) {
   const volume = 0;
 
   const { setWorkouts, workouts } = useContext(UserContext);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(workout.liked);
 
   const handleDeleteWorkout = () => {
     setWorkouts([...workouts.filter((obj) => obj.date !== date)]);
@@ -34,7 +34,13 @@ export default function WorkoutHistoryCard({ workout }) {
 
   const handleSetLiked = () => {
     setLiked(!liked);
+    setWorkouts(
+      workouts.map((obj) =>
+        obj.date !== workout.date ? obj : { ...workout, liked: !liked }
+      )
+    );
   };
+
   return (
     <WorkoutHistoryCardContainer>
       <WorkoutInfoContainer>

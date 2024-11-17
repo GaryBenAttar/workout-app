@@ -60,6 +60,7 @@ export default function NewWorkout({ routine, duration }) {
         duration: formattedDuration,
         volume: "",
         exercises: routineExercises,
+        liked: false,
       },
       ...workouts,
     ]);
