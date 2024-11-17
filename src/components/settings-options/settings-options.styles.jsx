@@ -42,7 +42,7 @@ export const ChangePassword = styled.div`
 
   button {
     background-color: ${(props) => props.theme.color.blue};
-    color: ${(props) => props.theme.color.textMain};
+    color: white;
 
     width: 150px;
     padding: 10px;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { borders } from "../../utils/css-const.utils";
 
 export const SettingsContainer = styled.div`
   display: flex;
@@ -7,6 +6,7 @@ export const SettingsContainer = styled.div`
   width: 100%;
   margin: 20px;
 
+  border: ${(props) => props.theme.borders};
   border-radius: 8px;
 
   background-color: ${(props) => props.theme.color.sectionBackground};
@@ -17,19 +17,20 @@ export const SettingsContainer = styled.div`
 `;
 
 export const FieldOptionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
-  border: ${(props) => props.theme.borders};
+
+  border-left: ${(props) => props.theme.borders};
 `;
 
 export const SaveChangesButton = styled.button`
+  align-self: flex-end;
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.color.sectionBackground};
-  color: ${(props) => props.theme.color.blue};
 
-  &:hover {
-    background-color: ${(props) => props.theme.color.blue};
-    color: ${(props) => props.theme.color.sectionBackground};
-  }
+  background-color: ${(props) => props.theme.color.blue};
+  color: white;
 `;

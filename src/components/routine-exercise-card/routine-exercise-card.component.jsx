@@ -37,7 +37,7 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
 
   const [restTime, setRestTime] = useState("Off");
 
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(exercise.note);
 
   useEffect(() => {
     setRoutineExercises(
@@ -52,7 +52,7 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
           : value;
       })
     );
-  }, [exerciseSets]);
+  }, [exerciseSets, note]);
 
   const handleAddSet = () => {
     setExerciseSets([

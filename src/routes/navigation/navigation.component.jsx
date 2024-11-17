@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import {
+  LogoContainer,
   LogoStyled,
   NavigationContainer,
   NavigationLinks,
@@ -10,61 +11,57 @@ import {
   SearchUserInput,
 } from "./navigation.styles";
 
+import { SettingsContext } from "../../contexts/settings.context";
+
 export default function Navigation() {
-  const [activeLink, setActiveLink] = useState("feed");
+  const { activeNavLink } = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    setActiveLink("feed");
     navigate("/");
   };
 
   return (
     <>
       <NavigationContainer>
-        <LogoStyled onClick={handleLogoClick} />
+        <LogoContainer onClick={handleLogoClick}>
+          <LogoStyled />
+          <span>Workouts</span>
+        </LogoContainer>
         {/* <SearchUserContainer>
           <i className="fa-solid fa-magnifying-glass"></i>
           <SearchUserInput placeholder="Search User" type="text" />
         </SearchUserContainer> */}
         <NavigationLinks>
-          <NavLink
-            to="/"
-            className={activeLink === "feed" ? "active" : ""}
-            onClick={() => setActiveLink("feed")}
-          >
+          <NavLink to="/" className={activeNavLink === "feed" ? "active" : ""}>
             <i className="fa-solid fa-house"></i>
             <span>Feed</span>
           </NavLink>
           <NavLink
             to="routines"
-            className={activeLink === "routines" ? "active" : ""}
-            onClick={() => setActiveLink("routines")}
+            className={activeNavLink === "routines" ? "active" : ""}
           >
             <i className="fa-solid fa-clipboard"></i>
             <span>Routines</span>
           </NavLink>
           <NavLink
             to="exercises"
-            className={activeLink === "exercises" ? "active" : ""}
-            onClick={() => setActiveLink("exercises")}
+            className={activeNavLink === "exercises" ? "active" : ""}
           >
             <i className="fa-solid fa-dumbbell"></i>
             <span>Exercises</span>
           </NavLink>
-          {/* <NavLink
+          <NavLink
             to="profile"
-            className={activeLink === "profile" ? "active" : ""}
-            onClick={() => setActiveLink("profile")}
+            className={activeNavLink === "profile" ? "active" : ""}
           >
             <i className="fa-solid fa-user"></i>
             <span>Profile</span>
-          </NavLink> */}
+          </NavLink>
           <NavLink
             to="settings"
-            className={activeLink === "settings" ? "active" : ""}
-            onClick={() => setActiveLink("settings")}
+            className={activeNavLink === "settings" ? "active" : ""}
           >
             <i className="fa-solid fa-gear"></i>
             <span>Settings</span>

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
+
 import { SettingsContext } from "../../contexts/settings.context";
 import {
   ChangePassword,
-  SaveChangesButton,
   SettingSelect,
   SettingsOptionsContainer,
 } from "./settings-options.styles";

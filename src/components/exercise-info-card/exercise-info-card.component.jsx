@@ -20,7 +20,6 @@ export default function ExerciseInfoCard({ exercise }) {
         <ExerciseInfo>
           <h2>{title}</h2>
           <span>Equipment: {equipments}</span>
-
           <span>Primary Muscle Group: {exercise.muscles[0]}</span>
         </ExerciseInfo>
         <ExerciseImageContainer>

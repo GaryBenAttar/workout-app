@@ -15,6 +15,9 @@ export const ExerciseInfoContainer = styled.div`
 export const ExerciseInfo = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 5px;
+
+  font-size: 0.8rem;
 `;
 
 export const ExerciseImageContainer = styled.div`
@@ -27,7 +30,9 @@ export const ExerciseImageContainer = styled.div`
   width: 400px;
 
   img {
+    align-self: center;
+
     border-radius: 50%;
-    height: 248px;
+    height: 200px;
   }
 `;

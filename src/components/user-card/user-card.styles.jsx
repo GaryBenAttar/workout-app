@@ -30,9 +30,13 @@ export const UserNamesContainer = styled.div`
   align-items: center;
 
   span.fullname {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
     font-size: 0.9rem;
   }
+
   span.username {
     font-weight: 600;
   }
@@ -56,7 +60,10 @@ export const UserSummary = styled.div`
   align-items: center;
 
   span.summary-title {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
     font-size: 0.8rem;
   }
 `;

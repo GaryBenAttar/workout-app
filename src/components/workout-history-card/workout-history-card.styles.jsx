@@ -34,7 +34,10 @@ export const WorkoutUserInfoContainer = styled.div`
   margin-bottom: 10px;
 
   span.date {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
   }
 `;
 
@@ -66,7 +69,10 @@ export const WorkoutDetails = styled.div`
   gap: 5px;
 
   span.heading {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
   }
 `;
 
@@ -78,7 +84,10 @@ export const WorkoutContentContainer = styled.div`
   padding: 20px;
 
   span.heading {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
   }
 `;
 
@@ -89,6 +98,8 @@ export const SetContent = styled.div`
   img {
     width: 50px;
     height: 50px;
+
+    border-radius: 50%;
   }
 `;
 
@@ -144,6 +155,9 @@ export const CommentContainer = styled.div`
   button {
     border: none;
     background-color: ${(props) => props.theme.color.sectionBackground};
-    color: ${(props) => props.theme.color.lightGrey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
   }
 `;

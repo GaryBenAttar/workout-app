@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import {
   HomeContainer,
@@ -12,11 +12,15 @@ import UserCard from "../../components/user-card/user-card.component";
 // import SuggestedAthletes from "../../components/suggested-athletes/suggested-athletes.component";
 import { UserContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
+import { SettingsContext } from "../../contexts/settings.context";
 
 export default function Home() {
   const navigate = useNavigate();
   const { workouts } = useContext(UserContext);
 
+  const { setActiveNavLink } = useContext(SettingsContext);
+
+  useEffect(() => setActiveNavLink("feed"), []);
   return (
     <HomeContainer>
       <WorkoutsHistoryContainer>

@@ -6,7 +6,6 @@ import { ReactComponent as Logo } from "../../assets/app_logo.svg";
 export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 20px;
 
   min-width: 250px;
@@ -19,9 +18,24 @@ export const NavigationContainer = styled.div`
   background-color: ${(props) => props.theme.color.sectionBackground};
 `;
 
+export const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: 600;
+  }
+`;
+
 export const LogoStyled = styled(Logo)`
-  width: 150px;
-  height: 50px;
+  width: 50px;
+  height: 30px;
 `;
 
 export const NavigationLinks = styled.div`

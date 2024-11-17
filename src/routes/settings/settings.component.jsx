@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   SettingsContainer,
@@ -14,7 +14,7 @@ import { SettingsContext } from "../../contexts/settings.context";
 export default function Settings() {
   const [activeField, setActiveField] = useState("profile");
   const { setUsername } = useContext(UserContext);
-  const { settings } = useContext(SettingsContext);
+  const { settings, setActiveNavLink } = useContext(SettingsContext);
 
   const handleActiveField = (field) => {
     setActiveField(field);
@@ -23,6 +23,8 @@ export default function Settings() {
   const handleSaveChanges = () => {
     setUsername(settings.name);
   };
+
+  useEffect(() => setActiveNavLink("settings"), []);
 
   return (
     <SettingsContainer>

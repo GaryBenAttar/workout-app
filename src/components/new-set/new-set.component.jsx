@@ -48,10 +48,14 @@ export default function NewSet({
   };
 
   const handleDone = () => {
-    done && setCountdown(0);
-    !done && timerCountdownStart();
-    setDone(!done);
-    setToggleCountdown(!toggleCountdown);
+    if (reps > 0) {
+      done && setCountdown(0);
+      !done && timerCountdownStart();
+      setDone(!done);
+      setToggleCountdown(!toggleCountdown);
+    } else {
+      alert("You need to do at least 1 rep");
+    }
   };
 
   return (

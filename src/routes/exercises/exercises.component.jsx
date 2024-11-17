@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Library from "../../components/library/library.component";
 import {
@@ -8,9 +8,14 @@ import {
   NoExerciseContainer,
 } from "./exercises.styles";
 import ExerciseInfoCard from "../../components/exercise-info-card/exercise-info-card.component";
+import { SettingsContext } from "../../contexts/settings.context";
 export default function Exercises() {
   const [exercise, setExercise] = useState("");
   const handleSetExercise = (exercise) => setExercise(exercise);
+
+  const { setActiveNavLink } = useContext(SettingsContext);
+
+  useEffect(() => setActiveNavLink("exercises"), []);
 
   return (
     <ExercisesContainer>

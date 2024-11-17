@@ -72,11 +72,14 @@ export default function NewWorkout({ routine, duration }) {
     ];
 
     const currentDate = new Date();
+
     const formattedDate = `${currentDate.getDate()} ${
       months[currentDate.getMonth()]
     } ${currentDate.getFullYear()}, ${
-      currentDate.getHours() < 10 && "0"
-    }${currentDate.getHours()}:${currentDate.getMinutes()}`;
+      currentDate.getHours() < 10 ? "0" : ""
+    }${currentDate.getHours()}:${
+      currentDate.getMinutes() < 10 ? "0" : ""
+    }${currentDate.getMinutes()}`;
 
     setRoutineExercises([]);
     setWorkouts([

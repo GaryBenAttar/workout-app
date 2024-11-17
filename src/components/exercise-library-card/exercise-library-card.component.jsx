@@ -31,12 +31,6 @@ export default function ExercisesLibraryCard({
       //     (exercise) => exercise.title !== exerciseClicked.title
       //   )
       // );
-
-      console.log(
-        exercisesList.filter(
-          (exercise) => exercise.title !== exerciseClicked.title
-        )
-      );
     } else if (page === "exercises") {
       handleExerciseClick(exerciseClicked);
     }

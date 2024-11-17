@@ -7,6 +7,8 @@ export const greyColor = "rgb(243, 244, 246)";
 export const borders = `0.5px solid rgb(211, 211, 211)`;
 
 export const lightTheme = {
+  name: "light",
+
   color: {
     textMain: "black",
     bodyBackground: "#f9fafb",
@@ -25,6 +27,8 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+  name: "dark",
+
   color: {
     textMain: "white",
     bodyBackground: "rgb(25, 26, 28)",

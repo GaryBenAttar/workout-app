@@ -40,7 +40,10 @@ export const NoExerciseContainer = styled.div`
   }
 
   .grey {
-    color: ${(props) => props.theme.color.grey};
+    color: ${(props) =>
+      props.theme.name === "light"
+        ? props.theme.color.grey
+        : props.theme.color.lightGrey};
   }
 `;
 

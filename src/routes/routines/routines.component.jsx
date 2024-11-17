@@ -5,9 +5,10 @@ import {
   MyRoutinesContainer,
   NewRoutinesButton,
 } from "./routines.styles";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { RoutinesContext } from "../../contexts/routines.context";
 import RoutineCard from "../../components/routine-card/routine-card.component";
+import { SettingsContext } from "../../contexts/settings.context";
 
 export default function Routines() {
   const { routines, setEditRoutine } = useContext(RoutinesContext);
@@ -19,6 +20,9 @@ export default function Routines() {
     navigate("/create-routine");
   };
 
+  const { setActiveNavLink } = useContext(SettingsContext);
+
+  useEffect(() => setActiveNavLink("routines"), []);
   return (
     <>
       <RoutinesContainer>
