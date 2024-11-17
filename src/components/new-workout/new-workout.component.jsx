@@ -19,22 +19,32 @@ export default function NewWorkout({ routine, duration }) {
   const { workouts, setWorkouts } = useContext(UserContext);
 
   const [volume, setVolume] = useState(0);
-  const [numberOfSets, setNumberOfSets] = useState(0);
 
   const formattedDuration = `${
     Math.floor(duration / 60) > 0 ? Math.floor(duration / 60) + "min" : ""
   } ${duration % 60}s`;
 
-  useEffect(() => {
-    setNumberOfSets(
-      routineExercises.reduce((acc, exercise) => {
-        return acc + exercise.sets.length;
-      }, 0)
-    );
-  }, [routineExercises]);
-
   const navigate = useNavigate();
+
   useEffect(() => setRoutineExercises(routine.exercises), []);
+  useEffect(
+    () =>
+      setVolume(
+        routineExercises.reduce(
+          (acc, exercise) =>
+            acc +
+            Number(
+              exercise.sets.reduce(
+                (acc, set) =>
+                  set.done ? acc + Number(set.weight * set.reps) : acc,
+                0
+              )
+            ),
+          0
+        )
+      ),
+    [routineExercises]
+  );
 
   const handleDiscardWorkout = () => {
     setRoutineExercises([]);
@@ -46,10 +56,27 @@ export default function NewWorkout({ routine, duration }) {
   ).length;
 
   const handleFinishWorkout = () => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
     const currentDate = new Date();
-    const formattedDate = `${currentDate.getDate()}/${
-      currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`;
+    const formattedDate = `${currentDate.getDate()} ${
+      months[currentDate.getMonth()]
+    } ${currentDate.getFullYear()}, ${
+      currentDate.getHours() < 10 && "0"
+    }${currentDate.getHours()}:${currentDate.getMinutes()}`;
 
     setRoutineExercises([]);
     setWorkouts([
@@ -58,9 +85,9 @@ export default function NewWorkout({ routine, duration }) {
         user: "Vailrog",
         date: formattedDate,
         duration: formattedDuration,
-        volume: "",
-        exercises: routineExercises,
+        volume: volume,
         liked: false,
+        exercises: routineExercises,
       },
       ...workouts,
     ]);
@@ -75,8 +102,8 @@ export default function NewWorkout({ routine, duration }) {
           <span>{formattedDuration}</span>
         </WorkoutSummary>
         <WorkoutSummary>
-          <span className="heading">Weight</span>
-          <span>5364kg</span>
+          <span className="heading">Weight (kg)</span>
+          <span>{volume}</span>
         </WorkoutSummary>
         <WorkoutSummary>
           <span className="heading">Sets</span>

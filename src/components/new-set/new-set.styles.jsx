@@ -37,7 +37,7 @@ export const NewSetContainer = styled.div`
   }
 
   &.done {
-    background-color: green;
+    background-color: #3cc63c;
   }
 `;
 

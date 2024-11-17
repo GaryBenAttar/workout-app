@@ -46,8 +46,8 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
           ? {
               id: exercise.id,
               title: exercise.title,
-              note: note,
               sets: [...exerciseSets],
+              note: note,
             }
           : value;
       })
@@ -87,7 +87,12 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
       ...exerciseSets
         .filter((set) => set.id !== id)
         .map((set) => {
-          return { id: i++, reps: set.reps, weight: set.weight };
+          return {
+            id: i++,
+            reps: set.reps,
+            weight: set.weight,
+            done: set.done,
+          };
         }),
     ]);
   };

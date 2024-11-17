@@ -78,9 +78,9 @@ export default function NewSet({
       ) : (
         <i className="fa-solid fa-x" onClick={() => deleteSet(id)}></i>
       )}
-      {toggleCountdown && countdown !== 0 && countdown !== "Off" && (
+      {/* {toggleCountdown && countdown !== 0 && countdown !== "Off" && (
         <Countdown countdown={countdown} />
-      )}
+      )} */}
     </NewSetContainer>
   );
 }

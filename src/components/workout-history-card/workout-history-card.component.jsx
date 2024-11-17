@@ -22,8 +22,7 @@ import exercisesList from "../../exercises.json";
 import { UserContext } from "../../contexts/user.context";
 
 export default function WorkoutHistoryCard({ workout }) {
-  const { name, user, date, duration, exercises } = workout;
-  const volume = 0;
+  const { name, user, date, duration, exercises, volume } = workout;
 
   const { setWorkouts, workouts } = useContext(UserContext);
   const [liked, setLiked] = useState(workout.liked);
@@ -65,7 +64,7 @@ export default function WorkoutHistoryCard({ workout }) {
           </WorkoutDetails>
           <WorkoutDetails>
             <span className="heading">Volume</span>
-            <span>{volume}</span>
+            <span>{volume}kg</span>
           </WorkoutDetails>
         </WorkoutDurationAndVolume>
       </WorkoutInfoContainer>

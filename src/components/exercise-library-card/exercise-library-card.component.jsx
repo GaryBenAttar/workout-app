@@ -26,11 +26,11 @@ export default function ExercisesLibraryCard({
         },
       ]);
 
-      handleExerciseClick(
-        exercisesList.filter(
-          (exercise) => exercise.title !== exerciseClicked.title
-        )
-      );
+      // handleExerciseClick(
+      //   exercisesList.filter(
+      //     (exercise) => exercise.title !== exerciseClicked.title
+      //   )
+      // );
 
       console.log(
         exercisesList.filter(

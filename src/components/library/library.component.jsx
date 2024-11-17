@@ -15,7 +15,7 @@ export default function Library({ page, handleExerciseClick }) {
 
   const onExerciseClick = (page, exercise) => {
     if (page === "create-routine" || page === "workout") {
-      updateExercisesList();
+      updateExercisesList(exercise);
     } else if (page === "exercises") {
       handleExerciseClick(exercise);
     }
