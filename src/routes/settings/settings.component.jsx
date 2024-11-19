@@ -11,10 +11,10 @@ import fields from "../../settings.json";
 import { UserContext } from "../../contexts/user.context";
 import { SettingsContext } from "../../contexts/settings.context";
 
-export default function Settings() {
+const Settings = () => {
   const [activeField, setActiveField] = useState("profile");
   const { setUsername } = useContext(UserContext);
-  const { settings, setActiveNavLink } = useContext(SettingsContext);
+  const { settings } = useContext(SettingsContext);
 
   const handleActiveField = (field) => {
     setActiveField(field);
@@ -23,8 +23,6 @@ export default function Settings() {
   const handleSaveChanges = () => {
     setUsername(settings.name);
   };
-
-  useEffect(() => setActiveNavLink("settings"), []);
 
   return (
     <SettingsContainer>
@@ -46,4 +44,6 @@ export default function Settings() {
       </FieldOptionsContainer>
     </SettingsContainer>
   );
-}
+};
+
+export default Settings;

@@ -1,37 +1,57 @@
 import { useContext, useState } from "react";
 import {
   RoutineCardContainer,
+  RoutineCardContent,
+  RoutineCardSpan,
   RoutineOptionsContainer,
+  RoutineOptionsSpan,
+  StyledIcon,
 } from "./routine-card.styles";
 import { RoutinesContext } from "../../contexts/routines.context";
+import { faPen, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-export default function RoutineCard({ routine, handleEditRoutine }) {
-  const { routines, setRoutines } = useContext(RoutinesContext);
+const RoutineCard = ({ routine, handleEditRoutine }) => {
+  const { setRoutines } = useContext(RoutinesContext);
+  const navigate = useNavigate();
 
   const [toogleEditOptions, setToggleEditOptions] = useState(false);
 
   const handleDeleteRoutine = (routine) => {
-    setRoutines(routines.filter((obj) => obj.id !== routine.id));
+    setRoutines((previousRoutines) =>
+      previousRoutines.filter((obj) => obj.id !== routine.id)
+    );
   };
 
   return (
-    <div>
-      <RoutineCardContainer
+    <RoutineCardContainer>
+      <RoutineCardContent
         key={routine.id}
-        onClick={() => setToggleEditOptions(!toogleEditOptions)}
+        onClick={() => setToggleEditOptions((prevState) => !prevState)}
       >
-        <span>{routine.title}</span>
-      </RoutineCardContainer>
+        <RoutineCardSpan>{routine.title}</RoutineCardSpan>
+      </RoutineCardContent>
       {toogleEditOptions && (
         <RoutineOptionsContainer>
-          <span onClick={() => handleEditRoutine(routine)}>
-            <i className="fa-solid fa-pen"></i> Edit Routine
-          </span>
-          <span onClick={() => handleDeleteRoutine(routine)}>
-            <i className="fa-solid fa-trash"></i> Delete Routine
-          </span>
+          <RoutineOptionsSpan
+            onClick={() =>
+              navigate("/routines/start-workout", {
+                state: { routine: routine },
+              })
+            }
+          >
+            <StyledIcon icon={faPlay} /> Start Routine
+          </RoutineOptionsSpan>
+          <RoutineOptionsSpan onClick={() => handleEditRoutine(routine)}>
+            <StyledIcon icon={faPen} /> Edit Routine
+          </RoutineOptionsSpan>
+          <RoutineOptionsSpan onClick={() => handleDeleteRoutine(routine)}>
+            <StyledIcon icon={faTrash} /> Delete Routine
+          </RoutineOptionsSpan>
         </RoutineOptionsContainer>
       )}
-    </div>
+    </RoutineCardContainer>
   );
-}
+};
+
+export default RoutineCard;

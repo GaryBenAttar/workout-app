@@ -1,25 +1,26 @@
-import { useContext } from "react";
 import {
   ExercisessContainer,
   NewRoutineContainer,
+  NewRoutineHeading,
   RoutineTitleInput,
 } from "./new-routine.styles";
-import { RoutinesContext } from "../../contexts/routines.context";
+
 import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
 
-export default function NewRoutine({ inProgress }) {
-  const { routineTitle, setRoutineTitle, routineExercises } =
-    useContext(RoutinesContext);
-
-  const handleRoutineTitle = (event) => setRoutineTitle(event.target.value);
-
+const NewRoutine = ({
+  inProgress,
+  routineTitle,
+  routineExercises,
+  setRoutineTitle,
+  setRoutineExercises,
+}) => {
   return (
     <NewRoutineContainer>
-      <span>Routine Title</span>
+      <NewRoutineHeading>Routine Title</NewRoutineHeading>
       {!inProgress && (
         <RoutineTitleInput
           placeholder="Workout Routine Title"
-          onChange={handleRoutineTitle}
+          onChange={(event) => setRoutineTitle(event.target.value)}
           value={routineTitle}
         />
       )}
@@ -29,9 +30,13 @@ export default function NewRoutine({ inProgress }) {
             inProgress={inProgress}
             exercise={exercise}
             key={exercise.title}
+            routineExercises={routineExercises}
+            setRoutineExercises={setRoutineExercises}
           />
         ))}
       </ExercisessContainer>
     </NewRoutineContainer>
   );
-}
+};
+
+export default NewRoutine;

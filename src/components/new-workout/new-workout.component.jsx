@@ -1,4 +1,6 @@
-import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   WorkoutContainer,
   WorkoutSummary,
@@ -7,26 +9,26 @@ import {
   EndWorkoutButtonsContainer,
   DiscardWorkoutButton,
   FinishWorkoutButton,
+  WorkoutSummarySpan,
+  WorkoutSummaryHeadingSpan,
 } from "./new-workout.styles";
+
+import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
+
 import Library from "../library/library.component";
-import { useContext, useEffect, useState } from "react";
-import { RoutinesContext } from "../../contexts/routines.context";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
 
-export default function NewWorkout({ routine, duration }) {
-  const { routineExercises, setRoutineExercises } = useContext(RoutinesContext);
-  const { workouts, setWorkouts } = useContext(UserContext);
+const NewWorkout = ({ routine, duration }) => {
+  const { user, setUser } = useContext(UserContext);
 
+  const [routineExercises, setRoutineExercises] = useState(routine.exercises);
   const [volume, setVolume] = useState(0);
+  const navigate = useNavigate();
 
   const formattedDuration = `${
     Math.floor(duration / 60) > 0 ? Math.floor(duration / 60) + "min" : ""
   } ${duration % 60}s`;
 
-  const navigate = useNavigate();
-
-  useEffect(() => setRoutineExercises(routine.exercises), []);
   useEffect(
     () =>
       setVolume(
@@ -47,7 +49,6 @@ export default function NewWorkout({ routine, duration }) {
   );
 
   const handleDiscardWorkout = () => {
-    setRoutineExercises([]);
     navigate("/");
   };
 
@@ -81,19 +82,21 @@ export default function NewWorkout({ routine, duration }) {
       currentDate.getMinutes() < 10 ? "0" : ""
     }${currentDate.getMinutes()}`;
 
-    setRoutineExercises([]);
-    setWorkouts([
-      {
-        name: routine.title,
-        user: "Vailrog",
-        date: formattedDate,
-        duration: formattedDuration,
-        volume: volume,
-        liked: false,
-        exercises: routineExercises,
-      },
-      ...workouts,
-    ]);
+    setUser({
+      ...user,
+      workouts: [
+        {
+          name: routine.title,
+          user: "Vailrog",
+          date: formattedDate,
+          duration: formattedDuration,
+          volume: volume,
+          liked: false,
+          exercises: routineExercises,
+        },
+        ...user.workouts,
+      ],
+    });
     navigate("/");
   };
 
@@ -101,16 +104,16 @@ export default function NewWorkout({ routine, duration }) {
     <>
       <WorkoutSummaryContainer>
         <WorkoutSummary>
-          <span className="heading">Duration</span>
-          <span>{formattedDuration}</span>
+          <WorkoutSummaryHeadingSpan>Duration</WorkoutSummaryHeadingSpan>
+          <WorkoutSummarySpan>{formattedDuration}</WorkoutSummarySpan>
         </WorkoutSummary>
         <WorkoutSummary>
-          <span className="heading">Weight (kg)</span>
-          <span>{volume}</span>
+          <WorkoutSummaryHeadingSpan>Weight (kg)</WorkoutSummaryHeadingSpan>
+          <WorkoutSummarySpan>{volume}</WorkoutSummarySpan>
         </WorkoutSummary>
         <WorkoutSummary>
-          <span className="heading">Sets</span>
-          <span>{setsDone}</span>
+          <WorkoutSummaryHeadingSpan>Sets</WorkoutSummaryHeadingSpan>
+          <WorkoutSummarySpan>{setsDone}</WorkoutSummarySpan>
         </WorkoutSummary>
       </WorkoutSummaryContainer>
       <EndWorkoutButtonsContainer>
@@ -131,14 +134,29 @@ export default function NewWorkout({ routine, duration }) {
         <ExercisesContainer>
           {routineExercises.map((exercise) => (
             <RoutineExercisesCard
+              routineExercises={routineExercises}
+              setRoutineExercises={setRoutineExercises}
               inProgress={true}
               exercise={exercise}
               key={exercise.title}
             />
           ))}
         </ExercisesContainer>
-        <Library page="workout" />
+        <Library
+          handleExerciseClick={(exercise) =>
+            setRoutineExercises((previousState) => [
+              ...previousState,
+              {
+                id: Date.now(),
+                title: exercise.title,
+                sets: [],
+              },
+            ])
+          }
+        />
       </WorkoutContainer>
     </>
   );
-}
+};
+
+export default NewWorkout;

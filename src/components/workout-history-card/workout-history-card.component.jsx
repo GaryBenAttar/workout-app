@@ -1,110 +1,45 @@
-import { useContext, useState } from "react";
-
 import {
-  CommentContainer,
-  DeleteWorkoutButton,
-  SetContent,
-  SocialInteraction,
-  SocialInteractionContainer,
-  UserImageContainer,
-  WorkoutContentContainer,
   WorkoutDetails,
+  WorkoutDetailsHeading,
+  WorkoutDetailsSpan,
   WorkoutDurationAndVolume,
   WorkoutHistoryCardContainer,
-  WorkoutHistoryCardHeader,
   WorkoutInfoContainer,
-  WorkoutUserInfoContainer,
+  WourkoutNameSpan,
 } from "./workout-history-card.styles";
 
-import UserImage from "../../assets/logo_panda.png";
-
 import exercisesList from "../../exercises.json";
-import { UserContext } from "../../contexts/user.context";
+import SocialInteractions from "../social-interaction/social-interaction.component";
+import WorkoutContent from "../workout-content/workout-content.component";
+import WorktoutHistoryCardHeader from "../workout-history-card-header/workout-history-card-header.component";
 
-export default function WorkoutHistoryCard({ workout }) {
+const WorkoutHistoryCard = ({ workout, handleDeleteWorkout }) => {
   const { name, user, date, duration, exercises, volume } = workout;
-
-  const { setWorkouts, workouts } = useContext(UserContext);
-  const [liked, setLiked] = useState(workout.liked);
-
-  const handleDeleteWorkout = () => {
-    setWorkouts([...workouts.filter((obj) => obj.date !== date)]);
-  };
-
-  const handleSetLiked = () => {
-    setLiked(!liked);
-    setWorkouts(
-      workouts.map((obj) =>
-        obj.date !== workout.date ? obj : { ...workout, liked: !liked }
-      )
-    );
-  };
 
   return (
     <WorkoutHistoryCardContainer>
+      <WorktoutHistoryCardHeader
+        user={user}
+        date={date}
+        handleDeleteWorkout={handleDeleteWorkout}
+      />
       <WorkoutInfoContainer>
-        <WorkoutHistoryCardHeader>
-          <WorkoutUserInfoContainer>
-            <UserImageContainer alt="user" src={UserImage} />
-            <div>
-              <span>{user}</span>
-              <br />
-              <span className="date">{date}</span>
-            </div>
-          </WorkoutUserInfoContainer>
-          <DeleteWorkoutButton onClick={handleDeleteWorkout}>
-            <i className="fa-solid fa-trash"></i>
-          </DeleteWorkoutButton>
-        </WorkoutHistoryCardHeader>
-        <span>{name}</span>
+        <WourkoutNameSpan>{name}</WourkoutNameSpan>
         <WorkoutDurationAndVolume>
           <WorkoutDetails>
-            <span className="heading">Duration</span>
-            <span>{duration}</span>
+            <WorkoutDetailsHeading>Duration</WorkoutDetailsHeading>
+            <WorkoutDetailsSpan>{duration}</WorkoutDetailsSpan>
           </WorkoutDetails>
           <WorkoutDetails>
-            <span className="heading">Volume</span>
-            <span>{volume}kg</span>
+            <WorkoutDetailsHeading>Volume</WorkoutDetailsHeading>
+            <WorkoutDetailsSpan>{volume}kg</WorkoutDetailsSpan>
           </WorkoutDetails>
         </WorkoutDurationAndVolume>
       </WorkoutInfoContainer>
-      <WorkoutContentContainer>
-        <span className="heading">Workout</span>
-        {exercises.map((exercise) => {
-          const { sets, title } = exercise;
-          const setsDone = sets.filter((set) => set.done).length;
-
-          const exerciseImage = exercisesList.filter(
-            (obj) => obj.title === exercise.title
-          )[0].imageUrl;
-
-          return setsDone > 0 ? (
-            <SetContent key={sets.id}>
-              <img alt="set" src={`${exerciseImage}`} />
-              <p>{`${setsDone} sets ${title}`}</p>
-            </SetContent>
-          ) : null;
-        })}
-      </WorkoutContentContainer>
-      <SocialInteractionContainer>
-        <SocialInteraction>
-          <i
-            className={`fa-${liked ? "solid" : "regular"} fa-thumbs-up`}
-            onClick={handleSetLiked}
-          ></i>
-        </SocialInteraction>
-        <SocialInteraction className="middle">
-          <i className="fa-solid fa-comment"></i>
-        </SocialInteraction>
-        <SocialInteraction>
-          <i className="fa-solid fa-share"></i>{" "}
-        </SocialInteraction>
-      </SocialInteractionContainer>
-      <CommentContainer>
-        <UserImageContainer alt="user" src={UserImage} />
-        <input placeholder="Write a comment..." />
-        <button>Post</button>
-      </CommentContainer>
+      <WorkoutContent exercises={exercises} exercisesList={exercisesList} />
+      <SocialInteractions />
     </WorkoutHistoryCardContainer>
   );
-}
+};
+
+export default WorkoutHistoryCard;

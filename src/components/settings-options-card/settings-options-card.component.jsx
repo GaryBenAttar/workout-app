@@ -1,8 +1,15 @@
-export default function SettingsOptionsCard({ children, name }) {
+import {
+  SettingsOptionsCardContainer,
+  SettingsOptionsCardSpan,
+} from "./settings-options-card.styles";
+
+const SettingsOptionsCard = ({ children, name }) => {
   return (
-    <div>
-      <span>{name}</span>
+    <SettingsOptionsCardContainer>
+      <SettingsOptionsCardSpan>{name}</SettingsOptionsCardSpan>
       {children}
-    </div>
+    </SettingsOptionsCardContainer>
   );
-}
+};
+
+export default SettingsOptionsCard;

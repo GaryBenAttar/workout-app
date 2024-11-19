@@ -3,12 +3,18 @@ import React, { useContext, useState } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
 import {
   ChangePassword,
+  ChangePasswordButton,
+  ChangePasswordInput,
   SettingSelect,
+  SettingSelectOption,
   SettingsOptionsContainer,
+  SettingsOptionsInput,
+  SettingsOptionsLabel,
+  SettingsOptionsSpan,
 } from "./settings-options.styles";
 import { UserContext } from "../../contexts/user.context";
 
-export default function SettingsOptions({ setting }) {
+const SettingsOptions = ({ setting }) => {
   const { settings, setSettings } = useContext(SettingsContext);
   const { name, options } = setting;
 
@@ -60,47 +66,59 @@ export default function SettingsOptions({ setting }) {
 
   return (
     <SettingsOptionsContainer>
-      {name !== "picture" && name !== "change password" ? (
-        <span>{`${name[0].toUpperCase()}${name.slice(1)}`}</span>
-      ) : null}
+      {name !== "picture" && name !== "change password" && (
+        <SettingsOptionsSpan>{`${name[0].toUpperCase()}${name.slice(
+          1
+        )}`}</SettingsOptionsSpan>
+      )}
 
       {options.length ? (
         <SettingSelect onChange={handleOptionChange}>
           {options.map((option) => (
-            <option key={option}>{option}</option>
+            <SettingSelectOption key={option}>{option}</SettingSelectOption>
           ))}
         </SettingSelect>
       ) : null}
 
-      {name === "name" ? (
-        <input value={settings.name} onChange={handleOptionChange} />
-      ) : null}
+      {name === "name" && (
+        <SettingsOptionsInput
+          value={settings.name}
+          onChange={handleOptionChange}
+        />
+      )}
 
-      {name === "bio" ? (
-        <input value={settings.bio} onChange={handleOptionChange} />
-      ) : null}
+      {name === "bio" && (
+        <SettingsOptionsInput
+          value={settings.bio}
+          onChange={handleOptionChange}
+        />
+      )}
 
-      {name === "change password" ? (
+      {name === "change password" && (
         <ChangePassword>
-          <label>Current Password</label>
-          <input
+          <SettingsOptionsLabel>Current Password</SettingsOptionsLabel>
+          <ChangePasswordInput
             value={changePass.currentPass}
             onChange={(event) => {
               setChangePass({ ...changePass, currentPass: event.target.value });
             }}
           />
-          <label>New Password</label>
-          <input
+          <SettingsOptionsLabel>New Password</SettingsOptionsLabel>
+          <ChangePasswordInput
             onChange={(event) => {
               setChangePass({ ...changePass, newPass: event.target.value });
             }}
             value={changePass.newPass}
           />
-          <button onClick={() => handleOptionChange(changePass.newPass)}>
+          <ChangePasswordButton
+            onClick={() => handleOptionChange(changePass.newPass)}
+          >
             Update Password
-          </button>
+          </ChangePasswordButton>
         </ChangePassword>
-      ) : null}
+      )}
     </SettingsOptionsContainer>
   );
-}
+};
+
+export default SettingsOptions;

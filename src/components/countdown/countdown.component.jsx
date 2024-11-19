@@ -1,12 +1,14 @@
 import React from "react";
-import { CountdownContainer } from "./countdown.styles";
+import { CountdownContainer, CountDownSpan } from "./countdown.styles";
 
-export default function Countdown({ countdown }) {
+const Countdown = ({ countdown }) => {
   return (
     <CountdownContainer>
-      <span>{`${countdown / 60 >= 1 ? Math.floor(countdown / 60) + "min" : ""}${
-        countdown % 60
-      }s`}</span>
+      <CountDownSpan>{`${
+        countdown / 60 >= 1 ? Math.floor(countdown / 60) + "min" : ""
+      }${countdown % 60}s`}</CountDownSpan>
     </CountdownContainer>
   );
-}
+};
+
+export default Countdown;

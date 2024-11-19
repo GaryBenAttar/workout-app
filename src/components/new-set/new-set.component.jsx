@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
-import { Done, DoneButton, NewSetContainer } from "./new-set.styles";
+import {
+  Done,
+  DoneButton,
+  NewSetContainer,
+  NewSetId,
+  NewSetInput,
+  StyledIcon,
+} from "./new-set.styles";
 import Countdown from "../countdown/countdown.component";
+import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
-export default function NewSet({
+const NewSet = ({
   setExerciseSetsValues,
   deleteSet,
   set,
   restTime,
   inProgress,
-}) {
+}) => {
   const { id, reps, weight } = set;
 
   const [done, setDone] = useState(false);
@@ -60,14 +68,14 @@ export default function NewSet({
 
   return (
     <NewSetContainer className={done ? "done" : ""}>
-      <p>{id}</p>
-      <input
+      <NewSetId>{id}</NewSetId>
+      <NewSetInput
         type="number"
         placeholder={reps}
         value={reps}
         onChange={handleChangeReps}
       />
-      <input
+      <NewSetInput
         type="number"
         placeholder={weight}
         value={weight}
@@ -76,15 +84,17 @@ export default function NewSet({
       {inProgress ? (
         <Done>
           <DoneButton onClick={handleDone}>
-            <i className="fa-solid fa-check"></i>
+            <StyledIcon icon={faCheck} />
           </DoneButton>
         </Done>
       ) : (
-        <i className="fa-solid fa-x" onClick={() => deleteSet(id)}></i>
+        <StyledIcon icon={faX} onClick={() => deleteSet(id)} />
       )}
       {/* {toggleCountdown && countdown !== 0 && countdown !== "Off" && (
         <Countdown countdown={countdown} />
       )} */}
     </NewSetContainer>
   );
-}
+};
+
+export default NewSet;

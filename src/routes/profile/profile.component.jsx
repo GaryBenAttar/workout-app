@@ -1,48 +1,55 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { UserContext } from "../../contexts/user.context";
+
 import {
   ProfileContainer,
   UserContainer,
   UserDetailsContainer,
+  UserDetailsSpan,
   UserEdit,
+  UserEditButton,
+  UserEditSpan,
+  UserImage,
   UserInfoContainer,
   UserSummaryContainer,
+  UserSummarySpan,
 } from "./profile.styles";
 
-import { SettingsContext } from "../../contexts/settings.context";
-import { UserContext } from "../../contexts/user.context";
+import image from "../../assets/logo_panda.png";
 
-import UserImage from "../../assets/logo_panda.png";
-
-export default function Profile() {
+const Profile = () => {
   const navigate = useNavigate();
-  const { setActiveNavLink } = useContext(SettingsContext);
-  const { username, fullname, workouts } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { username, fullname, workouts } = user;
 
   const handleEditProfile = () => {
     navigate("/settings");
   };
 
-  useEffect(() => setActiveNavLink("profile"), []);
   return (
     <ProfileContainer>
       <UserContainer>
-        <img alt="user" src={UserImage} />
+        <UserImage alt="user" src={image} />
         <UserInfoContainer>
           <UserEdit>
-            <span>{username}</span>
-            <button onClick={handleEditProfile}>Edit Profile</button>
+            <UserEditSpan>{username}</UserEditSpan>
+            <UserEditButton onClick={handleEditProfile}>
+              Edit Profile
+            </UserEditButton>
           </UserEdit>
           <UserDetailsContainer>
-            <span>{fullname}</span>
+            <UserDetailsSpan>{fullname}</UserDetailsSpan>
             <UserSummaryContainer>
-              <span>Workouts</span>
-              <span>{workouts.length}</span>
+              <UserSummarySpan>Workouts</UserSummarySpan>
+              <UserSummarySpan>{workouts.length}</UserSummarySpan>
             </UserSummaryContainer>
           </UserDetailsContainer>
         </UserInfoContainer>
       </UserContainer>
     </ProfileContainer>
   );
-}
+};
+
+export default Profile;

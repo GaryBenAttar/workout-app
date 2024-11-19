@@ -3,34 +3,34 @@ import { useContext, useEffect, useState } from "react";
 import Library from "../../components/library/library.component";
 import {
   ExerciseInfoContainer,
+  ExerciseInfoHeading,
   ExercisesContainer,
   ExerciseStatsContainer,
   NoExerciseContainer,
+  NoExerciseGreySpan,
+  NoExerciseSpan,
+  StyledIcon,
 } from "./exercises.styles";
 import ExerciseInfoCard from "../../components/exercise-info-card/exercise-info-card.component";
-import { SettingsContext } from "../../contexts/settings.context";
-export default function Exercises() {
+
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+
+const Exercises = () => {
   const [exercise, setExercise] = useState("");
   const handleSetExercise = (exercise) => setExercise(exercise);
-
-  const { setActiveNavLink } = useContext(SettingsContext);
-
-  useEffect(() => setActiveNavLink("exercises"), []);
 
   return (
     <ExercisesContainer>
       <ExerciseInfoContainer>
-        <h2>Exercises</h2>
-        <ExerciseStatsContainer
-          className={`${exercise === "" ? "centered" : ""}`}
-        >
+        <ExerciseInfoHeading>Exercises</ExerciseInfoHeading>
+        <ExerciseStatsContainer centered={(exercise === "").toString()}>
           {exercise === "" ? (
             <NoExerciseContainer>
-              <i className="fa-solid fa-dumbbell"></i>
-              <span>Select Exercise</span>
-              <span className="grey">
+              <StyledIcon icon={faDumbbell} />
+              <NoExerciseSpan>Select Exercise</NoExerciseSpan>
+              <NoExerciseGreySpan>
                 Click on an exercise to see statistics about it.
-              </span>
+              </NoExerciseGreySpan>
             </NoExerciseContainer>
           ) : (
             <ExerciseInfoCard exercise={exercise} />
@@ -40,4 +40,6 @@ export default function Exercises() {
       <Library page="exercises" handleExerciseClick={handleSetExercise} />
     </ExercisesContainer>
   );
-}
+};
+
+export default Exercises;

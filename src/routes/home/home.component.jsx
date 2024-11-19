@@ -1,39 +1,59 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import {
   HomeContainer,
   HomeHeading,
+  HomeHeadingSpan,
   NoWorkoutContainer,
+  StartWorkoutButton,
   UsersContainer,
   WorkoutsHistoryContainer,
 } from "./home.styles";
+
 import WorkoutHistoryCard from "../../components/workout-history-card/workout-history-card.component";
 import UserCard from "../../components/user-card/user-card.component";
 // import SuggestedAthletes from "../../components/suggested-athletes/suggested-athletes.component";
 import { UserContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
-import { SettingsContext } from "../../contexts/settings.context";
 
-export default function Home() {
+const Home = () => {
   const navigate = useNavigate();
-  const { workouts } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const { workouts } = user;
 
-  const { setActiveNavLink } = useContext(SettingsContext);
+  const handleDeleteWorkout = (date) => {
+    setUser((previousState) => {
+      return {
+        ...previousState,
+        workouts: [
+          ...previousState.workouts.filter((obj) => obj.date !== date),
+        ],
+      };
+    });
+  };
 
-  useEffect(() => setActiveNavLink("feed"), []);
   return (
     <HomeContainer>
       <WorkoutsHistoryContainer>
         <HomeHeading>
-          <span>Home</span>
-          <button onClick={() => navigate("/workout")}>Start Workout</button>
+          <HomeHeadingSpan>Home</HomeHeadingSpan>
+          <StartWorkoutButton
+            onClick={() => navigate("/routines/start-workout")}
+          >
+            Start Workout
+          </StartWorkoutButton>
         </HomeHeading>
         {workouts.length === 0 ? (
           <NoWorkoutContainer>No Workout Done Yet</NoWorkoutContainer>
-        ) : null}
-        {workouts.map((workout) => (
-          <WorkoutHistoryCard workout={workout} key={workout.date} />
-        ))}
+        ) : (
+          workouts.map((workout) => (
+            <WorkoutHistoryCard
+              workout={workout}
+              key={workout.date}
+              handleDeleteWorkout={handleDeleteWorkout}
+            />
+          ))
+        )}
       </WorkoutsHistoryContainer>
       <UsersContainer>
         <UserCard />
@@ -41,4 +61,6 @@ export default function Home() {
       </UsersContainer>
     </HomeContainer>
   );
-}
+};
+
+export default Home;

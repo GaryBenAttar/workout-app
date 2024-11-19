@@ -1,27 +1,20 @@
 import { useState } from "react";
-import { LibraryContainer, ExercisessContainer } from "./library.styles";
+import {
+  LibraryContainer,
+  ExercisesContainer,
+  ExercisesHeading,
+} from "./library.styles";
 
 import exercisesBaseList from "../../exercises.json";
 
 import ExerciseLibraryCard from "../exercise-library-card/exercise-library-card.component";
 import LibrarySearch from "../library-search/library-search.component";
 
-export default function Library({ page, handleExerciseClick }) {
+const Library = ({ handleExerciseClick }) => {
   const [exercisesList, setExercisesList] = useState(exercisesBaseList);
 
-  const updateExercisesList = (newList) => {
-    setExercisesList(newList);
-  };
-
-  const onExerciseClick = (page, exercise) => {
-    if (page === "create-routine" || page === "workout") {
-      updateExercisesList(exercise);
-    } else if (page === "exercises") {
-      handleExerciseClick(exercise);
-    }
-  };
-
   const handleSearchExercise = (value) => {
+    // look for search with debounce
     setExercisesList(value);
   };
 
@@ -31,18 +24,19 @@ export default function Library({ page, handleExerciseClick }) {
         onSearchExercise={handleSearchExercise}
         exerciseList={exercisesList}
       />
-      <ExercisessContainer>
-        <span>Exercises</span>
+      <ExercisesContainer>
+        <ExercisesHeading>Exercises</ExercisesHeading>
         {exercisesList.map((exercise) => (
           <ExerciseLibraryCard
             exercise={exercise}
             key={exercise.title}
-            page={page}
             exercisesList={exercisesList}
-            handleExerciseClick={() => onExerciseClick(page, exercise)}
+            handleExerciseClick={handleExerciseClick}
           />
         ))}
-      </ExercisessContainer>
+      </ExercisesContainer>
     </LibraryContainer>
   );
-}
+};
+
+export default Library;

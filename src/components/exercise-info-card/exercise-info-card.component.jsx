@@ -4,9 +4,12 @@ import {
   ExerciseInfoContainer,
   ExerciseInfo,
   ExerciseImageContainer,
+  ExerciseInfoSpan,
+  ExerciseInfoHeading,
+  ExerciseImage,
 } from "./exercise-info-car.styles";
 
-export default function ExerciseInfoCard({ exercise }) {
+const ExerciseInfoCard = ({ exercise }) => {
   const { imageUrl, title } = exercise;
 
   const equipments =
@@ -18,14 +21,18 @@ export default function ExerciseInfoCard({ exercise }) {
     <ExerciseInfoCardContainer>
       <ExerciseInfoContainer>
         <ExerciseInfo>
-          <h2>{title}</h2>
-          <span>Equipment: {equipments}</span>
-          <span>Primary Muscle Group: {exercise.muscles[0]}</span>
+          <ExerciseInfoHeading>{title}</ExerciseInfoHeading>
+          <ExerciseInfoSpan>Equipment: {equipments}</ExerciseInfoSpan>
+          <ExerciseInfoSpan>
+            Primary Muscle Group: {exercise.muscles[0]}
+          </ExerciseInfoSpan>
         </ExerciseInfo>
         <ExerciseImageContainer>
-          <img alt={`${title}`} src={imageUrl} />
+          <ExerciseImage alt={`${title}`} src={imageUrl} />
         </ExerciseImageContainer>
       </ExerciseInfoContainer>
     </ExerciseInfoCardContainer>
   );
-}
+};
+
+export default ExerciseInfoCard;

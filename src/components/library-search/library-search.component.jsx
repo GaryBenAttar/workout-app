@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 
 import {
   LibrarySearchContainer,
+  LibrarySearchHeading,
+  LibrarySearchOption,
+  LibrarySearchSelect,
   SearchExerciseContainer,
   SearchExerciseInput,
 } from "./library-search.styles";
 
 import exerciseBaseList from "../../exercises.json";
 
-export default function LibrarySearch({ onSearchExercise }) {
+const LibrarySearch = ({ onSearchExercise }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearchExercise = (event) => {
@@ -25,13 +28,13 @@ export default function LibrarySearch({ onSearchExercise }) {
 
   return (
     <LibrarySearchContainer>
-      <span>Library</span>
-      <select>
-        <option>All Equipement</option>
-      </select>
-      <select>
-        <option>All Muscles</option>
-      </select>
+      <LibrarySearchHeading>Library</LibrarySearchHeading>
+      <LibrarySearchSelect>
+        <LibrarySearchOption>All Equipement</LibrarySearchOption>
+      </LibrarySearchSelect>
+      <LibrarySearchSelect>
+        <LibrarySearchOption>All Muscles</LibrarySearchOption>
+      </LibrarySearchSelect>
       <SearchExerciseContainer>
         <SearchExerciseInput
           placeholder="Search Exercises"
@@ -41,4 +44,6 @@ export default function LibrarySearch({ onSearchExercise }) {
       </SearchExerciseContainer>
     </LibrarySearchContainer>
   );
-}
+};
+
+export default LibrarySearch;

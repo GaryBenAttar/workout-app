@@ -1,7 +1,7 @@
 [
   {
     "name": "profile",
-    "icon": "user",
+    "icon": "faUser",
     "settings": [
       {
         "name": "picture",
@@ -13,7 +13,7 @@
   },
   {
     "name": "account",
-    "icon": "lock",
+    "icon": "faLock",
     "settings": [
       { "name": "private profile", "options": ["On", "Off"] },
       { "name": "change password", "options": [] }
@@ -29,7 +29,7 @@
   },
   {
     "name": "units",
-    "icon": "ruler",
+    "icon": "faRuler",
     "settings": [
       { "name": "weight unit", "options": ["kg", "lbs"] },
       { "name": "distance unit", "options": ["kilometers", "miles"] },
@@ -38,7 +38,7 @@
   },
   {
     "name": "theme",
-    "icon": "moon",
+    "icon": "faMoon",
     "settings": [{ "name": "current theme", "options": ["Light", "Dark"] }]
   }
 ]

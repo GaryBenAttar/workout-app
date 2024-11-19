@@ -1,17 +1,21 @@
 import React from "react";
 import {
   SuggestedAthleteCardContainer,
+  SuggestedAthleteImage,
   SuggestedAthleteName,
+  SuggestedAthleteNameSpan,
 } from "./suggested-athlete-card.styles";
 
-export default function SuggestedAthleteCard() {
+const SuggestedAthleteCard = () => {
   return (
     <SuggestedAthleteCardContainer>
-      <img alt="athlete" />
+      <SuggestedAthleteImage alt="athlete" />
       <SuggestedAthleteName>
-        <span>Username</span>
-        <span>Full Name</span>
+        <SuggestedAthleteNameSpan>Username</SuggestedAthleteNameSpan>
+        <SuggestedAthleteNameSpan>Full Name</SuggestedAthleteNameSpan>
       </SuggestedAthleteName>
     </SuggestedAthleteCardContainer>
   );
-}
+};
+
+export default SuggestedAthleteCard;

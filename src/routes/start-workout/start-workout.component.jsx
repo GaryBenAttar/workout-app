@@ -1,48 +1,60 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   ChooseRoutineContainer,
   RoutineCard,
+  RoutineCardSpan,
   StartWorkoutContainer,
 } from "./start-workout.styles";
 import { RoutinesContext } from "../../contexts/routines.context";
 import NewWorkout from "../../components/new-workout/new-workout.component";
-export default function StartWorkout() {
-  const [routineStart, setRoutineStart] = useState(null);
+import { useLocation } from "react-router-dom";
+
+const StartWorkout = () => {
+  const location = useLocation();
+  const startRoutine = location.state?.routine;
+
+  const [routineStart, setRoutineStart] = useState(
+    startRoutine ? startRoutine : {}
+  );
+
   const { routines } = useContext(RoutinesContext);
 
   const [duration, setDuration] = useState(0);
 
   const emptyRoutine = {
+    id: Date.now(),
     title: "",
     exercises: [],
   };
 
-  let i = 0;
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setDuration((previousDuration) => previousDuration + 1);
+  //   }, 1000);
 
-  const startWorkout = (routine) => {
-    setRoutineStart(routine);
-    setInterval(() => {
-      i += 1;
-      setDuration(0);
-      setDuration(duration + i);
-    }, 1000);
-  };
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [routineStart]);
 
   return (
     <StartWorkoutContainer>
-      {!routineStart ? (
+      {!routineStart.id ? (
         <ChooseRoutineContainer>
           {routines.map((routine) => (
             <RoutineCard
-              onClick={() => startWorkout(routine)}
-              key={routine.title}
+              onClick={() => setRoutineStart(routine)}
+              key={routine.id}
             >
-              <span>{routine.title}</span>
+              <RoutineCardSpan>{routine.title}</RoutineCardSpan>
             </RoutineCard>
           ))}
-          <RoutineCard onClick={() => startWorkout(emptyRoutine)} key="empty">
-            <span>Empty Routine</span>
+          <RoutineCard
+            onClick={() => setRoutineStart(emptyRoutine)}
+            key="empty"
+          >
+            <RoutineCardSpan>Empty Routine</RoutineCardSpan>
           </RoutineCard>
         </ChooseRoutineContainer>
       ) : (
@@ -50,4 +62,6 @@ export default function StartWorkout() {
       )}
     </StartWorkoutContainer>
   );
-}
+};
+
+export default StartWorkout;

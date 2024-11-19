@@ -1,20 +1,38 @@
-import { useContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import {
   LogoContainer,
+  LogoSpan,
   LogoStyled,
   NavigationContainer,
   NavigationLinks,
-  NavLink,
   SearchUserContainer,
   SearchUserInput,
+  StyledIcon,
 } from "./navigation.styles";
 
-import { SettingsContext } from "../../contexts/settings.context";
+import {
+  faClipboard,
+  faDumbbell,
+  faGear,
+  faHome,
+  faMagnifyingGlass,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
-export default function Navigation() {
-  const { activeNavLink } = useContext(SettingsContext);
+import NavLink from "../../components/nav-link/nav-link.component";
+
+const routes = [
+  { name: "feed", path: "/", icon: faHome },
+  { name: "routines", path: "/routines", icon: faClipboard },
+  { name: "exercises", path: "/exercises", icon: faDumbbell },
+  { name: "profile", path: "/profile", icon: faUser },
+  { name: "settings", path: "/settings", icon: faGear },
+];
+
+const Navigation = () => {
+  const location = useLocation();
+  const activeNavLink = location.pathname;
 
   const navigate = useNavigate();
 
@@ -27,48 +45,31 @@ export default function Navigation() {
       <NavigationContainer>
         <LogoContainer onClick={handleLogoClick}>
           <LogoStyled />
-          <span>Workouts</span>
+          <LogoSpan>Workouts</LogoSpan>
         </LogoContainer>
         {/* <SearchUserContainer>
-          <i className="fa-solid fa-magnifying-glass"></i>
+        <StyledIcon icon={faMagnifyingGlass} />
           <SearchUserInput placeholder="Search User" type="text" />
         </SearchUserContainer> */}
         <NavigationLinks>
-          <NavLink to="/" className={activeNavLink === "feed" ? "active" : ""}>
-            <i className="fa-solid fa-house"></i>
-            <span>Feed</span>
-          </NavLink>
-          <NavLink
-            to="routines"
-            className={activeNavLink === "routines" ? "active" : ""}
-          >
-            <i className="fa-solid fa-clipboard"></i>
-            <span>Routines</span>
-          </NavLink>
-          <NavLink
-            to="exercises"
-            className={activeNavLink === "exercises" ? "active" : ""}
-          >
-            <i className="fa-solid fa-dumbbell"></i>
-            <span>Exercises</span>
-          </NavLink>
-          <NavLink
-            to="profile"
-            className={activeNavLink === "profile" ? "active" : ""}
-          >
-            <i className="fa-solid fa-user"></i>
-            <span>Profile</span>
-          </NavLink>
-          <NavLink
-            to="settings"
-            className={activeNavLink === "settings" ? "active" : ""}
-          >
-            <i className="fa-solid fa-gear"></i>
-            <span>Settings</span>
-          </NavLink>
+          {routes.map((route) => {
+            const { name, path, icon } = route;
+
+            return (
+              <NavLink
+                activeNavLink={activeNavLink}
+                name={name}
+                route={path}
+                icon={icon}
+                key={name}
+              />
+            );
+          })}
         </NavigationLinks>
       </NavigationContainer>
       <Outlet />
     </>
   );
-}
+};
+
+export default Navigation;

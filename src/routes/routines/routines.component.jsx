@@ -1,28 +1,27 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { RoutinesContext } from "../../contexts/routines.context";
+
 import {
   RoutinesContainer,
   NewRoutinesContainer,
   MyRoutinesContainer,
   NewRoutinesButton,
+  MyRoutinesHeading,
 } from "./routines.styles";
-import { useContext, useEffect } from "react";
-import { RoutinesContext } from "../../contexts/routines.context";
-import RoutineCard from "../../components/routine-card/routine-card.component";
-import { SettingsContext } from "../../contexts/settings.context";
 
-export default function Routines() {
-  const { routines, setEditRoutine } = useContext(RoutinesContext);
+import RoutineCard from "../../components/routine-card/routine-card.component";
+
+const Routines = () => {
+  const { routines } = useContext(RoutinesContext);
 
   const navigate = useNavigate();
 
   const handleEditRoutine = (routine) => {
-    setEditRoutine(routine);
-    navigate("/create-routine");
+    navigate("/routines/create-routine", { state: { routine: routine } });
   };
 
-  const { setActiveNavLink } = useContext(SettingsContext);
-
-  useEffect(() => setActiveNavLink("routines"), []);
   return (
     <>
       <RoutinesContainer>
@@ -33,18 +32,18 @@ export default function Routines() {
           </NewRoutinesButton>
         </NewRoutinesContainer>
         <MyRoutinesContainer>
-          <h2>My Routines</h2>
-          {routines.map((routine) => {
-            return (
-              <RoutineCard
-                routine={routine}
-                handleEditRoutine={handleEditRoutine}
-                key={routine.id}
-              />
-            );
-          })}
+          <MyRoutinesHeading>My Routines</MyRoutinesHeading>
+          {routines.map((routine) => (
+            <RoutineCard
+              routine={routine}
+              handleEditRoutine={handleEditRoutine}
+              key={routine.id}
+            />
+          ))}
         </MyRoutinesContainer>
       </RoutinesContainer>
     </>
   );
-}
+};
+
+export default Routines;

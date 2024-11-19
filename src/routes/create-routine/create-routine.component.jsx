@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import Library from "../../components/library/library.component";
 import NewRoutine from "../../components/new-routine/new-routine.component";
 import {
@@ -6,31 +6,48 @@ import {
   NewRoutineContainer,
   CreateRoutineHeader,
   SaveRoutineButton,
+  CreateRoutineHeading,
 } from "./create-routine.styles";
 import { RoutinesContext } from "../../contexts/routines.context";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function CreateRoutine() {
+const CreateRoutine = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const {
-    routines,
-    setRoutines,
-    editRoutine,
-    routineExercises,
-    setRoutineExercises,
-    routineTitle,
-    setRoutineTitle,
-  } = useContext(RoutinesContext);
+  const routine = location.state.routine;
 
-  useEffect(() => {
-    editRoutine.id && setRoutineExercises(editRoutine.exercises);
-    editRoutine.id && setRoutineTitle(editRoutine.title);
-  }, []);
+  const { routines, setRoutines } = useContext(RoutinesContext);
 
-  const mode = editRoutine.id ? "edit-routine" : "create-routine";
+  const [routineExercises, setRoutineExercises] = useState(
+    routine.id ? routine.exercises : []
+  );
 
-  const handleSaveRoutine = (mode) => {
+  const [routineTitle, setRoutineTitle] = useState(
+    routine.id ? routine.title : ""
+  );
+
+  const handleSetRoutineExercises = (value) => {
+    setRoutineExercises(value);
+  };
+
+  const handleSetRoutineTitle = (value) => {
+    setRoutineTitle(value);
+  };
+
+  const onAddExercise = (exercise) => {
+    setRoutineExercises((previousState) => [
+      ...previousState,
+      {
+        id: Date.now(),
+        title: exercise.title,
+        sets: [],
+      },
+    ]);
+  };
+
+  const handleSaveRoutine = () => {
+    const mode = routine.id ? "edit-routine" : "create-routine";
     mode === "create-routine" &&
       setRoutines([
         ...routines,
@@ -44,9 +61,9 @@ export default function CreateRoutine() {
     mode === "edit-routine" &&
       setRoutines(
         routines.map((obj) =>
-          obj.id === editRoutine.id
+          obj.id === routine.id
             ? {
-                id: editRoutine.id,
+                id: routine.id,
                 title: routineTitle,
                 exercises: [...routineExercises],
               }
@@ -63,19 +80,26 @@ export default function CreateRoutine() {
     <CreateRoutineContainer>
       <NewRoutineContainer>
         <CreateRoutineHeader>
-          <h2>Create Routine</h2>
+          <CreateRoutineHeading>Create Routine</CreateRoutineHeading>
           <SaveRoutineButton
-            onClick={
-              routineTitle !== "" ? () => handleSaveRoutine(mode) : () => {}
-            }
+            // Check why && does not work
+            onClick={routineTitle !== "" ? () => handleSaveRoutine() : () => {}}
             className={routineTitle === "" ? "disabled" : ""}
           >
             Save Routine
           </SaveRoutineButton>
         </CreateRoutineHeader>
-        <NewRoutine inProgress={false} />
+        <NewRoutine
+          inProgress={false}
+          routineExercises={routineExercises}
+          setRoutineExercises={handleSetRoutineExercises}
+          routineTitle={routineTitle}
+          setRoutineTitle={handleSetRoutineTitle}
+        />
       </NewRoutineContainer>
-      <Library page="create-routine" />
+      <Library page="create-routine" handleExerciseClick={onAddExercise} />
     </CreateRoutineContainer>
   );
-}
+};
+
+export default CreateRoutine;

@@ -1,25 +1,29 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   RoutineExerciseCardContainer,
   ExerciseImg,
   ExerciseInfo,
   Note,
-  SetsRepsContainer,
-  SetsRepsHeadings,
   RestTimerContainer,
-  SetCount,
-  RepsCount,
-  WeightLifted,
+  ExerciseInfoContainer,
+  ExerciseInfoSpan,
+  NoteInput,
+  NoteSpan,
+  RestTimerSelect,
+  RestTimerSelectOption,
+  RestTimerSpan,
 } from "./routine-exercise-card.styles";
 
-import NewSet from "../new-set/new-set.component";
-
 import exercisesList from "../../exercises.json";
-import { RoutinesContext } from "../../contexts/routines.context";
+import SetsContainer from "../sets-container/sets-container.component";
 
-export default function RoutineExerciseCard({ exercise, inProgress }) {
-  const { routineExercises, setRoutineExercises } = useContext(RoutinesContext);
+const RoutineExerciseCard = ({
+  exercise,
+  inProgress,
+  routineExercises,
+  setRoutineExercises,
+}) => {
   const { title } = exercise;
 
   const [exerciseSets, setExerciseSets] = useState(
@@ -54,49 +58,6 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
     );
   }, [exerciseSets, note]);
 
-  const handleAddSet = () => {
-    setExerciseSets([
-      ...exerciseSets,
-      {
-        id: exerciseSets.length + 1,
-        reps: "",
-        weight: "",
-        done: false,
-      },
-    ]);
-  };
-
-  const handleSetExerciseSetsValues = (id, reps, weight, done) => {
-    setExerciseSets(
-      exerciseSets.map((set) =>
-        set.id === id
-          ? {
-              id: id,
-              reps: reps,
-              weight: weight,
-              done: done,
-            }
-          : set
-      )
-    );
-  };
-
-  const handleDeleteSet = (id) => {
-    let i = 1;
-    setExerciseSets([
-      ...exerciseSets
-        .filter((set) => set.id !== id)
-        .map((set) => {
-          return {
-            id: i++,
-            reps: set.reps,
-            weight: set.weight,
-            done: set.done,
-          };
-        }),
-    ]);
-  };
-
   const emptyArray = new Array(60);
   let timerArray = [];
   for (let i = 0; i < emptyArray.length * 5; i += 5) {
@@ -119,55 +80,37 @@ export default function RoutineExerciseCard({ exercise, inProgress }) {
 
   return (
     <RoutineExerciseCardContainer>
-      <div>
+      <ExerciseInfoContainer>
         <ExerciseInfo>
           <ExerciseImg alt={`${title}`} src={currentExercise.imageUrl} />
-          <span>{title}</span>
+          <ExerciseInfoSpan>{title}</ExerciseInfoSpan>
         </ExerciseInfo>
-      </div>
+      </ExerciseInfoContainer>
       <Note>
-        <span>Note</span>
-        <input
+        <NoteSpan>Note</NoteSpan>
+        <NoteInput
           placeholder="Add pinned note"
           value={note}
           onChange={(event) => setNote(event.target.value)}
         />
       </Note>
       <RestTimerContainer>
-        <span>Rest Timer:</span>
-        <select onChange={handleRestTime}>
-          <option>Off</option>
+        <RestTimerSpan>Rest Timer:</RestTimerSpan>
+        <RestTimerSelect onChange={handleRestTime}>
+          <RestTimerSelectOption>Off</RestTimerSelectOption>
           {timerArray.map((value) => (
-            <option key={value}>{value}</option>
+            <RestTimerSelectOption key={value}>{value}</RestTimerSelectOption>
           ))}
-        </select>
+        </RestTimerSelect>
       </RestTimerContainer>
-      <SetsRepsContainer>
-        <SetsRepsHeadings>
-          <SetCount>
-            <span>SET</span>
-          </SetCount>
-          <RepsCount>
-            <span>REPS</span>
-          </RepsCount>
-          <WeightLifted>
-            <span>WEIGHT</span>
-          </WeightLifted>
-          {inProgress ? <span>Done</span> : <span></span>}
-        </SetsRepsHeadings>
-        {exerciseSets.map((set) => (
-          <NewSet
-            deleteSet={handleDeleteSet}
-            setExerciseSetsValues={handleSetExerciseSetsValues}
-            set={set}
-            key={`${exercise.title} ${set.id}`}
-            restTime={restTime}
-            inProgress={inProgress}
-          />
-        ))}
-
-        <button onClick={handleAddSet}>Add Set</button>
-      </SetsRepsContainer>
+      <SetsContainer
+        inProgress={inProgress}
+        exerciseSets={exerciseSets}
+        setExerciseSets={setExerciseSets}
+        restTime={restTime}
+      />
     </RoutineExerciseCardContainer>
   );
-}
+};
+
+export default RoutineExerciseCard;

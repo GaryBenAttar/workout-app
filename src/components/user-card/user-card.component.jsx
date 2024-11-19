@@ -2,21 +2,26 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
+  FullnameSpan,
   UserCardContainer,
   UserImageContainer,
   UserNamesContainer,
+  UsernameSpan,
+  UserProfileButton,
   UserSummary,
   UserSummaryContainer,
+  UserSummarySpan,
+  UserSummaryTitleSpan,
 } from "./user-card.styles";
 
 import UserImage from "../../assets/logo_panda.png";
 import { UserContext } from "../../contexts/user.context";
 
-export default function UserCard() {
+const UserCard = () => {
   const navigate = useNavigate();
 
-  const { username, fullname, workouts, followers, following } =
-    useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { username, fullname, workouts } = user;
 
   const handleSeeProfile = () => {
     navigate("settings");
@@ -26,24 +31,28 @@ export default function UserCard() {
     <UserCardContainer>
       <UserImageContainer alt="user" src={UserImage} />
       <UserNamesContainer>
-        <span className="username">{username}</span>
-        <span className="fullname">{fullname}</span>
+        <UsernameSpan>{username}</UsernameSpan>
+        <FullnameSpan>{fullname}</FullnameSpan>
       </UserNamesContainer>
       <UserSummaryContainer>
         <UserSummary>
-          <span className="summary-title">Workouts</span>
-          <span>{workouts.length}</span>
+          <UserSummaryTitleSpan>Workouts</UserSummaryTitleSpan>
+          <UserSummarySpan>{workouts.length}</UserSummarySpan>
         </UserSummary>
         {/* <UserSummary>
-          <span className="summary-title">Followers</span>
-          <span>{followers}</span>
+          <UserSummaryTitleSpan>Followers</UserSummaryTitleSpan>
+          <UserSummarySpan>{followers}</UserSummarySpan>
         </UserSummary>
         <UserSummary>
-          <span className="summary-title">Following</span>
-          <span>{following}</span>
+          <UserSummaryTitleSpan>Following</UserSummaryTitleSpan>
+          <UserSummarySpan>{following}</UserSummarySpan>
         </UserSummary> */}
       </UserSummaryContainer>
-      <button onClick={handleSeeProfile}>See your profile</button>
+      <UserProfileButton onClick={handleSeeProfile}>
+        See your profile
+      </UserProfileButton>
     </UserCardContainer>
   );
-}
+};
+
+export default UserCard;

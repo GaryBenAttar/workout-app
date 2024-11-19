@@ -1,11 +1,16 @@
 import SuggestedAthleteCard from "../suggested-athlete-card/suggested-athlete-card.component";
-import { SuggestedAthletesContainer } from "./suggested-athletes.styles";
+import {
+  SuggestedAthletesContainer,
+  SuggestedAthletesHeading,
+} from "./suggested-athletes.styles";
 
-export default function SuggestedAthletes() {
+const SuggestedAthletes = () => {
   return (
     <SuggestedAthletesContainer>
-      <h2>Suggested Athletes</h2>
+      <SuggestedAthletesHeading>Suggested Athletes</SuggestedAthletesHeading>
       <SuggestedAthleteCard />
     </SuggestedAthletesContainer>
   );
-}
+};
+
+export default SuggestedAthletes;
