@@ -6,13 +6,13 @@ import {
 } from "./new-routine.styles";
 
 import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
+import ExercisesList from "../exercices-list/exercises-list.component";
 
 const NewRoutine = ({
   inProgress,
   routineTitle,
   routineExercises,
   setRoutineTitle,
-  setRoutineExercises,
 }) => {
   return (
     <NewRoutineContainer>
@@ -24,17 +24,7 @@ const NewRoutine = ({
           value={routineTitle}
         />
       )}
-      <ExercisessContainer>
-        {routineExercises.map((exercise) => (
-          <RoutineExercisesCard
-            inProgress={inProgress}
-            exercise={exercise}
-            key={exercise.title}
-            routineExercises={routineExercises}
-            setRoutineExercises={setRoutineExercises}
-          />
-        ))}
-      </ExercisessContainer>
+      <ExercisesList exercises={routineExercises} />
     </NewRoutineContainer>
   );
 };

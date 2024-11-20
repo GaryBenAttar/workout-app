@@ -3,23 +3,33 @@ import { useNavigate } from "react-router-dom";
 
 import {
   WorkoutContainer,
-  WorkoutSummary,
-  WorkoutSummaryContainer,
   ExercisesContainer,
   EndWorkoutButtonsContainer,
   DiscardWorkoutButton,
   FinishWorkoutButton,
-  WorkoutSummarySpan,
-  WorkoutSummaryHeadingSpan,
 } from "./new-workout.styles";
 
 import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
 
 import Library from "../library/library.component";
 import { UserContext } from "../../contexts/user.context";
+import WorkoutSummary from "../workout-summary/workout-summary.component";
+import ExercisesList from "../exercices-list/exercises-list.component";
 
-const NewWorkout = ({ routine, duration }) => {
+const NewWorkout = ({ routine }) => {
   const { user, setUser } = useContext(UserContext);
+
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDuration((previousDuration) => previousDuration + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [routine]);
 
   const [routineExercises, setRoutineExercises] = useState(routine.exercises);
   const [volume, setVolume] = useState(0);
@@ -102,20 +112,11 @@ const NewWorkout = ({ routine, duration }) => {
 
   return (
     <>
-      <WorkoutSummaryContainer>
-        <WorkoutSummary>
-          <WorkoutSummaryHeadingSpan>Duration</WorkoutSummaryHeadingSpan>
-          <WorkoutSummarySpan>{formattedDuration}</WorkoutSummarySpan>
-        </WorkoutSummary>
-        <WorkoutSummary>
-          <WorkoutSummaryHeadingSpan>Weight (kg)</WorkoutSummaryHeadingSpan>
-          <WorkoutSummarySpan>{volume}</WorkoutSummarySpan>
-        </WorkoutSummary>
-        <WorkoutSummary>
-          <WorkoutSummaryHeadingSpan>Sets</WorkoutSummaryHeadingSpan>
-          <WorkoutSummarySpan>{setsDone}</WorkoutSummarySpan>
-        </WorkoutSummary>
-      </WorkoutSummaryContainer>
+      <WorkoutSummary
+        duration={formattedDuration}
+        volume={volume}
+        setsDone={setsDone}
+      />
       <EndWorkoutButtonsContainer>
         <FinishWorkoutButton
           onClick={() =>
@@ -131,17 +132,7 @@ const NewWorkout = ({ routine, duration }) => {
         </DiscardWorkoutButton>
       </EndWorkoutButtonsContainer>
       <WorkoutContainer>
-        <ExercisesContainer>
-          {routineExercises.map((exercise) => (
-            <RoutineExercisesCard
-              routineExercises={routineExercises}
-              setRoutineExercises={setRoutineExercises}
-              inProgress={true}
-              exercise={exercise}
-              key={exercise.title}
-            />
-          ))}
-        </ExercisesContainer>
+        <ExercisesList exercises={routineExercises} />
         <Library
           handleExerciseClick={(exercise) =>
             setRoutineExercises((previousState) => [

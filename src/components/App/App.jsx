@@ -12,6 +12,7 @@ import StartWorkout from "../../routes/start-workout/start-workout.component";
 import { AppContainer } from "./App.styles";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
+
 import {
   faPen,
   faDumbbell,
@@ -22,6 +23,7 @@ import {
   faHouse,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { RoutinesProvider } from "../../contexts/routines.context";
 
 library.add(faDumbbell);
@@ -34,7 +36,6 @@ library.add(faHouse);
 library.add(faMagnifyingGlass);
 
 const App = () => {
-  console.log("App render");
   return (
     <Theme>
       <AppContainer>

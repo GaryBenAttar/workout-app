@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import {
   ChooseRoutineContainer,
@@ -20,23 +20,11 @@ const StartWorkout = () => {
 
   const { routines } = useContext(RoutinesContext);
 
-  const [duration, setDuration] = useState(0);
-
   const emptyRoutine = {
     id: Date.now(),
     title: "",
     exercises: [],
   };
-
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setDuration((previousDuration) => previousDuration + 1);
-  //   }, 1000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [routineStart]);
 
   return (
     <StartWorkoutContainer>
@@ -58,7 +46,7 @@ const StartWorkout = () => {
           </RoutineCard>
         </ChooseRoutineContainer>
       ) : (
-        <NewWorkout routine={routineStart} duration={duration} />
+        <NewWorkout routine={routineStart} />
       )}
     </StartWorkoutContainer>
   );
