@@ -1,11 +1,19 @@
-const ExercisesList = ({ exercises }) => {
+import RoutineExerciseCard from "../routine-exercise-card/routine-exercise-card.component";
+import { ExercisesContainer } from "./exercises-list.styles";
+
+const ExercisesList = ({
+  exercises,
+  routineExercises,
+  setRoutineExercises,
+  inProgress,
+}) => {
   return (
     <ExercisesContainer>
       {exercises.map((exercise) => (
-        <RoutineExercisesCard
+        <RoutineExerciseCard
           routineExercises={routineExercises}
           setRoutineExercises={setRoutineExercises}
-          inProgress={true}
+          inProgress={inProgress}
           exercise={exercise}
           key={exercise.title}
         />

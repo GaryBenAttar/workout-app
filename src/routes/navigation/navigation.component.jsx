@@ -6,9 +6,6 @@ import {
   LogoStyled,
   NavigationContainer,
   NavigationLinks,
-  SearchUserContainer,
-  SearchUserInput,
-  StyledIcon,
 } from "./navigation.styles";
 
 import {
@@ -16,7 +13,6 @@ import {
   faDumbbell,
   faGear,
   faHome,
-  faMagnifyingGlass,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,7 +28,8 @@ const routes = [
 
 const Navigation = () => {
   const location = useLocation();
-  const activeNavLink = location.pathname;
+  const activeNavLink =
+    location.pathname === "/" ? "feed" : location.pathname.split("/")[1];
 
   const navigate = useNavigate();
 
@@ -47,10 +44,7 @@ const Navigation = () => {
           <LogoStyled />
           <LogoSpan>Workouts</LogoSpan>
         </LogoContainer>
-        {/* <SearchUserContainer>
-        <StyledIcon icon={faMagnifyingGlass} />
-          <SearchUserInput placeholder="Search User" type="text" />
-        </SearchUserContainer> */}
+
         <NavigationLinks>
           {routes.map((route) => {
             const { name, path, icon } = route;

@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import {
   WorkoutContainer,
-  ExercisesContainer,
   EndWorkoutButtonsContainer,
   DiscardWorkoutButton,
   FinishWorkoutButton,
 } from "./new-workout.styles";
-
-import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
 
 import Library from "../library/library.component";
 import { UserContext } from "../../contexts/user.context";
@@ -132,7 +129,12 @@ const NewWorkout = ({ routine }) => {
         </DiscardWorkoutButton>
       </EndWorkoutButtonsContainer>
       <WorkoutContainer>
-        <ExercisesList exercises={routineExercises} />
+        <ExercisesList
+          exercises={routineExercises}
+          routineExercises={routineExercises}
+          setRoutineExercises={setRoutineExercises}
+          inProgress={true}
+        />
         <Library
           handleExerciseClick={(exercise) =>
             setRoutineExercises((previousState) => [

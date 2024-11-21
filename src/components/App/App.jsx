@@ -50,7 +50,6 @@ const App = () => {
             <Route path="exercises" element={<Exercises />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="workout" element={<StartWorkout />} />
           </Route>
         </Routes>
       </AppContainer>

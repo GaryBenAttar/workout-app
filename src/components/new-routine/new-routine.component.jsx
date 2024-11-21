@@ -1,11 +1,9 @@
 import {
-  ExercisessContainer,
   NewRoutineContainer,
   NewRoutineHeading,
   RoutineTitleInput,
 } from "./new-routine.styles";
 
-import RoutineExercisesCard from "../routine-exercise-card/routine-exercise-card.component";
 import ExercisesList from "../exercices-list/exercises-list.component";
 
 const NewRoutine = ({
@@ -13,6 +11,7 @@ const NewRoutine = ({
   routineTitle,
   routineExercises,
   setRoutineTitle,
+  setRoutineExercises,
 }) => {
   return (
     <NewRoutineContainer>
@@ -24,7 +23,12 @@ const NewRoutine = ({
           value={routineTitle}
         />
       )}
-      <ExercisesList exercises={routineExercises} />
+      <ExercisesList
+        exercises={routineExercises}
+        routineExercises={routineExercises}
+        setRoutineExercises={setRoutineExercises}
+        inProgress={false}
+      />
     </NewRoutineContainer>
   );
 };
