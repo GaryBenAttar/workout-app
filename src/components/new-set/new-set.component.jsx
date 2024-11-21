@@ -7,7 +7,6 @@ import {
   NewSetInput,
   StyledIcon,
 } from "./new-set.styles";
-import Countdown from "../countdown/countdown.component";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 const NewSet = ({
@@ -19,11 +18,15 @@ const NewSet = ({
 }) => {
   const { id, reps, weight } = set;
 
-  const [done, setDone] = useState(false);
-  const [toggleCountdown, setToggleCountdown] = useState(false);
-  const [countdown, setCountdown] = useState(restTime);
+  const [isDone, setIsDone] = useState({
+    done: false,
+    toggleCountdown: false,
+    countdown: restTime,
+  });
 
-  useEffect(() => setExerciseSetsValues(id, reps, weight, done), [done]);
+  const { done, toggleCountdown, countdown } = isDone;
+
+  useEffect(() => setExerciseSetsValues(id, reps, weight, done), [isDone]);
 
   const handleChangeReps = (event) => {
     if (event.target.value >= 0) {
@@ -37,37 +40,20 @@ const NewSet = ({
     }
   };
 
-  let timerInterval;
-
-  const timerCountdownStart = () => {
-    setCountdown(restTime);
-    let i = 1;
-    timerInterval = setInterval(() => {
-      if (countdown === 0) {
-        setCountdown(restTime);
-        i = 1;
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-
-      setCountdown(restTime - i);
-      i++;
-    }, 1000);
-  };
-
   const handleDone = () => {
     if (reps > 0) {
-      done && setCountdown(0);
-      !done && timerCountdownStart();
-      setDone(!done);
-      setToggleCountdown(!toggleCountdown);
+      setIsDone((previousState) => ({
+        done: !previousState.done,
+        toggleCountdown: !previousState.toggleCountdown,
+        countdown: restTime,
+      }));
     } else {
       alert("You need to do at least 1 rep");
     }
   };
 
   return (
-    <NewSetContainer className={done ? "done" : ""}>
+    <NewSetContainer done={done}>
       <NewSetId>{id}</NewSetId>
       <NewSetInput
         type="number"

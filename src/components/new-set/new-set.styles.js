@@ -9,13 +9,10 @@ export const NewSetContainer = styled.div`
   height: 40px;
   padding: 10px;
 
-  background-color: ${(props) => props.theme.color.input};
+  background-color: ${(props) =>
+    props.done ? "#3cc63c" : props.theme.color.input};
 
   border-radius: 4px;
-
-  &.done {
-    background-color: #3cc63c;
-  }
 `;
 
 export const NewSetId = styled.span`

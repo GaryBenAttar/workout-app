@@ -7,7 +7,6 @@ import {
 import ExercisesList from "../exercices-list/exercises-list.component";
 
 const NewRoutine = ({
-  inProgress,
   routineTitle,
   routineExercises,
   setRoutineTitle,
@@ -16,13 +15,11 @@ const NewRoutine = ({
   return (
     <NewRoutineContainer>
       <NewRoutineHeading>Routine Title</NewRoutineHeading>
-      {!inProgress && (
-        <RoutineTitleInput
-          placeholder="Workout Routine Title"
-          onChange={(event) => setRoutineTitle(event.target.value)}
-          value={routineTitle}
-        />
-      )}
+      <RoutineTitleInput
+        placeholder="Workout Routine Title"
+        onChange={(event) => setRoutineTitle(event.target.value)}
+        value={routineTitle}
+      />
       <ExercisesList
         exercises={routineExercises}
         routineExercises={routineExercises}
