@@ -28,18 +28,14 @@ export const CreateRoutineHeading = styled.h2``;
 
 export const SaveRoutineButton = styled.button`
   color: white;
-  background-color: ${(props) => props.theme.color.blue};
+  background-color: ${(props) =>
+    props.disabled ? props.theme.color.lightBlue : props.theme.color.blue};
 
   height: 30px;
   border: none;
   border-radius: 8px;
 
   cursor: pointer;
-
-  &.disabled {
-    background-color: ${(props) => props.theme.color.lightBlue};
-    cursor: auto;
-  }
 `;
 
 export const LibraryContainer = styled.div``;

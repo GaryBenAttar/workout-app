@@ -18,7 +18,7 @@ const StartWorkout = () => {
     startRoutine ? startRoutine : {}
   );
 
-  const { routines } = useContext(RoutinesContext);
+  const { routinesList } = useContext(RoutinesContext);
 
   const emptyRoutine = {
     id: Date.now(),
@@ -30,7 +30,7 @@ const StartWorkout = () => {
     <StartWorkoutContainer>
       {!routineStart.id ? (
         <ChooseRoutineContainer>
-          {routines.map((routine) => (
+          {routinesList.map((routine) => (
             <RoutineCard
               onClick={() => setRoutineStart(routine)}
               key={routine.id}
@@ -46,7 +46,7 @@ const StartWorkout = () => {
           </RoutineCard>
         </ChooseRoutineContainer>
       ) : (
-        <NewWorkout routine={routineStart} />
+        <NewWorkout routineStart={routineStart} />
       )}
     </StartWorkoutContainer>
   );

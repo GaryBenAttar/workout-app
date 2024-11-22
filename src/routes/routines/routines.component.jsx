@@ -13,8 +13,14 @@ import {
 
 import RoutineCard from "../../components/routine-card/routine-card.component";
 
+const emptyRoutine = {
+  id: Date.now(),
+  title: "",
+  exercises: [],
+};
+
 const Routines = () => {
-  const { routines } = useContext(RoutinesContext);
+  const { routinesList } = useContext(RoutinesContext);
 
   const navigate = useNavigate();
 
@@ -27,13 +33,13 @@ const Routines = () => {
       <RoutinesContainer>
         <NewRoutinesContainer>
           New Routines
-          <NewRoutinesButton onClick={() => handleEditRoutine({})}>
+          <NewRoutinesButton onClick={() => handleEditRoutine(emptyRoutine)}>
             Create Routine
           </NewRoutinesButton>
         </NewRoutinesContainer>
         <MyRoutinesContainer>
           <MyRoutinesHeading>My Routines</MyRoutinesHeading>
-          {routines.map((routine) => (
+          {routinesList.map((routine) => (
             <RoutineCard
               routine={routine}
               handleEditRoutine={handleEditRoutine}

@@ -13,9 +13,18 @@ import { UserContext } from "../../contexts/user.context";
 import WorkoutSummary from "../workout-summary/workout-summary.component";
 import ExercisesList from "../exercices-list/exercises-list.component";
 
-const NewWorkout = ({ routine }) => {
+const NewWorkout = ({ routineStart }) => {
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(UserContext);
 
+  const [routine, setRoutine] = useState({
+    ...routineStart,
+    volume: 0,
+  });
+  const { exercises } = routine;
+
+  const [volume, setVolume] = useState(0);
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
@@ -28,10 +37,6 @@ const NewWorkout = ({ routine }) => {
     };
   }, [routine]);
 
-  const [routineExercises, setRoutineExercises] = useState(routine.exercises);
-  const [volume, setVolume] = useState(0);
-  const navigate = useNavigate();
-
   const formattedDuration = `${
     Math.floor(duration / 60) > 0 ? Math.floor(duration / 60) + "min" : ""
   } ${duration % 60}s`;
@@ -39,7 +44,7 @@ const NewWorkout = ({ routine }) => {
   useEffect(
     () =>
       setVolume(
-        routineExercises.reduce(
+        exercises.reduce(
           (acc, exercise) =>
             acc +
             Number(
@@ -52,14 +57,14 @@ const NewWorkout = ({ routine }) => {
           0
         )
       ),
-    [routineExercises]
+    [exercises]
   );
 
   const handleDiscardWorkout = () => {
     navigate("/");
   };
 
-  const setsDone = routineExercises.filter(
+  const setsDone = exercises.filter(
     (exercise) => exercise.sets.filter((set) => set.done).length > 0
   ).length;
 
@@ -99,7 +104,7 @@ const NewWorkout = ({ routine }) => {
           duration: formattedDuration,
           volume: volume,
           liked: false,
-          exercises: routineExercises,
+          exercises: exercises,
         },
         ...user.workouts,
       ],
@@ -130,21 +135,23 @@ const NewWorkout = ({ routine }) => {
       </EndWorkoutButtonsContainer>
       <WorkoutContainer>
         <ExercisesList
-          exercises={routineExercises}
-          routineExercises={routineExercises}
-          setRoutineExercises={setRoutineExercises}
+          exercises={exercises}
+          setRoutine={setRoutine}
           inProgress={true}
         />
         <Library
           handleExerciseClick={(exercise) =>
-            setRoutineExercises((previousState) => [
+            setRoutine((previousState) => ({
               ...previousState,
-              {
-                id: Date.now(),
-                title: exercise.title,
-                sets: [],
-              },
-            ])
+              exercises: [
+                ...exercises,
+                {
+                  id: Date.now(),
+                  title: exercise.title,
+                  sets: [{ id: 1, reps: "", weight: "", done: false }],
+                },
+              ],
+            }))
           }
         />
       </WorkoutContainer>

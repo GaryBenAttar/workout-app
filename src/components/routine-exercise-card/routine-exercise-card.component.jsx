@@ -18,17 +18,12 @@ import {
 import exercisesList from "../../exercises.json";
 import SetsContainer from "../sets-container/sets-container.component";
 
-const RoutineExerciseCard = ({
-  exercise,
-  inProgress,
-  routineExercises,
-  setRoutineExercises,
-}) => {
-  const { title } = exercise;
+const RoutineExerciseCard = ({ exercise, inProgress, setRoutine }) => {
+  const { title, sets } = exercise;
 
   const [exerciseSets, setExerciseSets] = useState(
-    inProgress || exercise.sets.length > 0
-      ? exercise.sets
+    inProgress || sets.length > 0
+      ? sets
       : [
           {
             id: 1,
@@ -44,8 +39,9 @@ const RoutineExerciseCard = ({
   const [note, setNote] = useState(exercise.note);
 
   useEffect(() => {
-    setRoutineExercises(
-      routineExercises.map((value) => {
+    setRoutine((previousState) => ({
+      ...previousState,
+      exercises: previousState.exercises.map((value) => {
         return value.id === exercise.id
           ? {
               id: exercise.id,
@@ -54,8 +50,8 @@ const RoutineExerciseCard = ({
               note: note,
             }
           : value;
-      })
-    );
+      }),
+    }));
   }, [exerciseSets, note]);
 
   const emptyArray = new Array(60);
@@ -104,9 +100,9 @@ const RoutineExerciseCard = ({
         </RestTimerSelect>
       </RestTimerContainer>
       <SetsContainer
-        inProgress={inProgress}
         exerciseSets={exerciseSets}
         setExerciseSets={setExerciseSets}
+        inProgress={inProgress}
         restTime={restTime}
       />
     </RoutineExerciseCardContainer>

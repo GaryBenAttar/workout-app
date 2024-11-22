@@ -1,18 +1,12 @@
 import RoutineExerciseCard from "../routine-exercise-card/routine-exercise-card.component";
 import { ExercisesContainer } from "./exercises-list.styles";
 
-const ExercisesList = ({
-  exercises,
-  routineExercises,
-  setRoutineExercises,
-  inProgress,
-}) => {
+const ExercisesList = ({ exercises, setRoutine, inProgress }) => {
   return (
     <ExercisesContainer>
       {exercises.map((exercise) => (
         <RoutineExerciseCard
-          routineExercises={routineExercises}
-          setRoutineExercises={setRoutineExercises}
+          setRoutine={setRoutine}
           inProgress={inProgress}
           exercise={exercise}
           key={exercise.title}

@@ -6,24 +6,24 @@ import {
 
 import ExercisesList from "../exercices-list/exercises-list.component";
 
-const NewRoutine = ({
-  routineTitle,
-  routineExercises,
-  setRoutineTitle,
-  setRoutineExercises,
-}) => {
+const NewRoutine = ({ routine, setRoutine }) => {
+  const { title, exercises } = routine;
   return (
     <NewRoutineContainer>
       <NewRoutineHeading>Routine Title</NewRoutineHeading>
       <RoutineTitleInput
         placeholder="Workout Routine Title"
-        onChange={(event) => setRoutineTitle(event.target.value)}
-        value={routineTitle}
+        onChange={(event) =>
+          setRoutine((previousState) => ({
+            ...previousState,
+            title: event.target.value,
+          }))
+        }
+        value={title}
       />
       <ExercisesList
-        exercises={routineExercises}
-        routineExercises={routineExercises}
-        setRoutineExercises={setRoutineExercises}
+        exercises={exercises}
+        setRoutine={setRoutine}
         inProgress={false}
       />
     </NewRoutineContainer>

@@ -2,8 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 export const RoutinesContext = createContext({
-  routines: [],
-  setRoutines: () => {},
+  routinesList: [],
+  setRoutinesList: () => {},
 });
 
 const getInitalRoutines = () => {
@@ -12,15 +12,15 @@ const getInitalRoutines = () => {
 };
 
 export const RoutinesProvider = () => {
-  const [routines, setRoutines] = useState(getInitalRoutines);
+  const [routinesList, setRoutinesList] = useState(getInitalRoutines);
 
   useEffect(() => {
-    localStorage.setItem("routines", JSON.stringify(routines));
-  }, [routines]);
+    localStorage.setItem("routines", JSON.stringify(routinesList));
+  }, [routinesList]);
 
   const value = {
-    routines,
-    setRoutines,
+    routinesList,
+    setRoutinesList,
   };
 
   return (
