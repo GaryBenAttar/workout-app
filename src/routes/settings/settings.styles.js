@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/button/button.component";
 
 export const SettingsContainer = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ export const FieldOptionsContainer = styled.div`
   border-left: ${(props) => props.theme.borders};
 `;
 
-export const SaveChangesButton = styled.button`
+export const SaveChangesButton = styled(Button)`
   align-self: flex-end;
   padding: 10px;
   border: none;

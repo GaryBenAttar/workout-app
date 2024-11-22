@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../button/button.component";
 
 export const SettingsOptionsContainer = styled.div`
   display: flex;
@@ -49,7 +50,7 @@ export const ChangePasswordInput = styled.input`
   border-radius: 8px;
 `;
 
-export const ChangePasswordButton = styled.button`
+export const ChangePasswordButton = styled(Button)`
   background-color: ${(props) => props.theme.color.blue};
   color: white;
 

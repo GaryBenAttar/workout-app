@@ -7,7 +7,7 @@ import Exercises from "../../routes/exercises/exercises.component";
 import Profile from "../../routes/profile/profile.component";
 import Settings from "../../routes/settings/settings.component";
 import CreateRoutine from "../../routes/create-routine/create-routine.component";
-import { Theme } from "../../utils/css-const.utils";
+import { Theme } from "../../utils/theme";
 import StartWorkout from "../../routes/start-workout/start-workout.component";
 import { AppContainer } from "./App.styles";
 

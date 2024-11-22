@@ -9,19 +9,11 @@ import {
 } from "./routine-card.styles";
 import { RoutinesContext } from "../../contexts/routines.context";
 import { faPen, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 
-const RoutineCard = ({ routine, handleEditRoutine }) => {
-  const { setRoutines } = useContext(RoutinesContext);
-  const navigate = useNavigate();
+const RoutineCard = ({ routine, handleRedirectRoutine }) => {
+  const { setRoutinesList } = useContext(RoutinesContext);
 
   const [toogleEditOptions, setToggleEditOptions] = useState(false);
-
-  const handleDeleteRoutine = (routine) => {
-    setRoutines((previousRoutines) =>
-      previousRoutines.filter((obj) => obj.id !== routine.id)
-    );
-  };
 
   return (
     <RoutineCardContainer>
@@ -34,18 +26,22 @@ const RoutineCard = ({ routine, handleEditRoutine }) => {
       {toogleEditOptions && (
         <RoutineOptionsContainer>
           <RoutineOptionsSpan
-            onClick={() =>
-              navigate("/routines/start-workout", {
-                state: { routine: routine },
-              })
-            }
+            onClick={() => handleRedirectRoutine("start-workout", routine)}
           >
             <StyledIcon icon={faPlay} /> Start Routine
           </RoutineOptionsSpan>
-          <RoutineOptionsSpan onClick={() => handleEditRoutine(routine)}>
+          <RoutineOptionsSpan
+            onClick={() => handleRedirectRoutine("create-routine", routine)}
+          >
             <StyledIcon icon={faPen} /> Edit Routine
           </RoutineOptionsSpan>
-          <RoutineOptionsSpan onClick={() => handleDeleteRoutine(routine)}>
+          <RoutineOptionsSpan
+            onClick={() =>
+              setRoutinesList((previousRoutines) =>
+                previousRoutines.filter((obj) => obj.id !== routine.id)
+              )
+            }
+          >
             <StyledIcon icon={faTrash} /> Delete Routine
           </RoutineOptionsSpan>
         </RoutineOptionsContainer>

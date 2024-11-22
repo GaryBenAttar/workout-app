@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/button/button.component";
 
 export const ProfileContainer = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ export const UserEdit = styled.div`
 
 export const UserEditSpan = styled.span``;
 
-export const UserEditButton = styled.button``;
+export const UserEditButton = styled(Button)``;
 
 export const UserDetailsContainer = styled.div`
   display: flex;

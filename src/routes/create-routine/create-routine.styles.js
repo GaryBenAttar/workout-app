@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/button/button.component";
 
 export const CreateRoutineContainer = styled.div`
   display: flex;
@@ -26,16 +27,8 @@ export const CreateRoutineHeader = styled.div`
 
 export const CreateRoutineHeading = styled.h2``;
 
-export const SaveRoutineButton = styled.button`
-  color: white;
-  background-color: ${(props) =>
-    props.disabled ? props.theme.color.lightBlue : props.theme.color.blue};
-
+export const SaveRoutineButton = styled(Button)`
   height: 30px;
-  border: none;
-  border-radius: 8px;
-
-  cursor: pointer;
 `;
 
 export const LibraryContainer = styled.div``;

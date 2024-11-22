@@ -9,7 +9,7 @@ const ExercisesList = ({ exercises, setRoutine, inProgress }) => {
           setRoutine={setRoutine}
           inProgress={inProgress}
           exercise={exercise}
-          key={exercise.title}
+          key={exercise.id}
         />
       ))}
     </ExercisesContainer>

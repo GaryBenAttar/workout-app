@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import {
   DeleteWorkoutButton,
   WorkoutHistoryCardHeaderContainer,
@@ -22,9 +21,7 @@ const WorktoutHistoryCardHeader = ({ date, user, handleDeleteWorkout }) => {
         <UserImageContainer alt="user" src={UserImage} />
         <WorkoutUserInfoDiv>
           <WorkoutUserInfoSpan>{user}</WorkoutUserInfoSpan>
-          <WorkoutUserInfoDateSpan className="date">
-            {date}
-          </WorkoutUserInfoDateSpan>
+          <WorkoutUserInfoDateSpan>{date}</WorkoutUserInfoDateSpan>
         </WorkoutUserInfoDiv>
       </WorkoutUserInfoContainer>
       <DeleteWorkoutButton onClick={() => handleDeleteWorkout(date)}>

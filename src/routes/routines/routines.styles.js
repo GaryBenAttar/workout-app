@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/button/button.component";
 
 export const RoutinesContainer = styled.div`
   display: flex;
@@ -45,19 +46,8 @@ export const MyRoutinesContainer = styled.div`
 
 export const MyRoutinesHeading = styled.h2``;
 
-export const NewRoutinesButton = styled.button`
+export const NewRoutinesButton = styled(Button)`
   height: 40px;
-
-  border: ${(props) => props.theme.borders};
-  border-radius: 8px;
-
-  background-color: ${(props) => props.theme.color.sectionBackground};
-  color: ${(props) => props.theme.color.textMain};
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.hover};
-    cursor: pointer;
-  }
 `;
 
 export const RenameWorkoutContainer = styled.div`

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import Button from "../button/button.component";
 
 export const SocialInteractionContainer = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ export const CommentInput = styled.input`
   color: ${(props) => props.theme.color.textMain};
 `;
 
-export const CommentButton = styled.button`
+export const CommentButton = styled(Button)`
   border: none;
   background-color: ${(props) => props.theme.color.sectionBackground};
   color: ${(props) =>

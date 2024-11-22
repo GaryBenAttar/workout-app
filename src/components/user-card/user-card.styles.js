@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../button/button.component";
 
 export const UserCardContainer = styled.div`
   display: flex;
@@ -59,7 +60,7 @@ export const UserSummaryTitleSpan = styled.span`
 
 export const UserSummarySpan = styled.span``;
 
-export const UserProfileButton = styled.button`
+export const UserProfileButton = styled(Button)`
   width: 100%;
 
   border: ${(props) => props.theme.borders};

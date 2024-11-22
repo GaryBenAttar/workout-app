@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../button/button.component";
 
 export const WorkoutContainer = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ export const EndWorkoutButtonsContainer = styled.div`
   padding: 0px 20px;
 `;
 
-export const DiscardWorkoutButton = styled.button`
+export const DiscardWorkoutButton = styled(Button)`
   color: red;
 
   padding: 10px;
@@ -39,7 +40,7 @@ export const DiscardWorkoutButton = styled.button`
   }
 `;
 
-export const FinishWorkoutButton = styled.button`
+export const FinishWorkoutButton = styled(Button)`
   color: ${(props) => props.theme.color.blue};
 
   padding: 10px;

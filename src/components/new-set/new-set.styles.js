@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
+import Button from "../button/button.component";
+
 export const NewSetContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -47,7 +49,7 @@ export const Done = styled.div`
   }
 `;
 
-export const DoneButton = styled.button`
+export const DoneButton = styled(Button)`
   border-radius: 50%;
   border: ${(props) => props.theme.borders};
 `;

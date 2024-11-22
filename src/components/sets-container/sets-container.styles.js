@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../button/button.component";
 
 export const SetsRepsContainer = styled.div`
   display: flex;
@@ -42,7 +43,7 @@ export const SetHeadings = styled.div`
   width: 50px;
 `;
 
-export const AddSetButton = styled.button`
+export const AddSetButton = styled(Button)`
   height: 30px;
   border: ${(props) => props.theme.borders};
 

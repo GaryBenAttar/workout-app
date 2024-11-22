@@ -38,6 +38,7 @@ const Home = () => {
         <HomeHeading>
           <HomeHeadingSpan>Home</HomeHeadingSpan>
           <StartWorkoutButton
+            buttonType="blue"
             onClick={() => navigate("/routines/start-workout")}
           >
             Start Workout

@@ -53,6 +53,7 @@ const CreateRoutine = () => {
         <CreateRoutineHeader>
           <CreateRoutineHeading>Create Routine</CreateRoutineHeading>
           <SaveRoutineButton
+            buttonType={"blue"}
             // Check why && does not work
             onClick={title !== "" ? () => handleSaveRoutine() : () => {}}
             disabled={title === ""}

@@ -21,7 +21,7 @@
   },
   {
     "name": "subsciptions",
-
+    "icon": "",
     "settings": [
       { "name": "current subscription", "options": [] },
       { "name": "change subscription", "options": [] }

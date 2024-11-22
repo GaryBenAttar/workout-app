@@ -24,8 +24,8 @@ const Routines = () => {
 
   const navigate = useNavigate();
 
-  const handleEditRoutine = (routine) => {
-    navigate("/routines/create-routine", { state: { routine: routine } });
+  const handleRedirectRoutine = (path, routine) => {
+    navigate(`/routines/${path}`, { state: { routine: routine } });
   };
 
   return (
@@ -33,7 +33,11 @@ const Routines = () => {
       <RoutinesContainer>
         <NewRoutinesContainer>
           New Routines
-          <NewRoutinesButton onClick={() => handleEditRoutine(emptyRoutine)}>
+          <NewRoutinesButton
+            onClick={() =>
+              handleRedirectRoutine("create-routine", emptyRoutine)
+            }
+          >
             Create Routine
           </NewRoutinesButton>
         </NewRoutinesContainer>
@@ -42,7 +46,7 @@ const Routines = () => {
           {routinesList.map((routine) => (
             <RoutineCard
               routine={routine}
-              handleEditRoutine={handleEditRoutine}
+              handleRedirectRoutine={handleRedirectRoutine}
               key={routine.id}
             />
           ))}

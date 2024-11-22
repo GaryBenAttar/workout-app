@@ -37,12 +37,12 @@ const SettingsMenu = ({ activeField, handleActiveField, fields }) => {
         return (
           <SettingsField
             onClick={() => handleActiveField(name)}
-            active={activeField === `${name}` ? "active" : ""}
+            active={activeField === `${name}`}
             key={name}
             name={name}
             settings={settings}
           >
-            <StyledIcon icon={iconDisplayed(icon)} />
+            {icon !== "" && <StyledIcon icon={iconDisplayed(icon)} />}
             <SettingFieldSpan>{`${name[0].toUpperCase()}${name.slice(
               1
             )}`}</SettingFieldSpan>

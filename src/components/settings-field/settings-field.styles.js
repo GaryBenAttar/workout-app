@@ -7,7 +7,5 @@ export const SettingsFieldContainer = styled.div`
   height: 40px;
   cursor: pointer;
 
-  &.active {
-    color: ${(props) => props.theme.color.blue};
-  }
+  color: ${(props) => props.active === "true" && props.theme.color.blue};
 `;

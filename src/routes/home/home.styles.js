@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/button/button.component";
 
 export const HomeContainer = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ export const HomeHeading = styled.div`
 
 export const HomeHeadingSpan = styled.span``;
 
-export const StartWorkoutButton = styled.button`
+export const StartWorkoutButton = styled(Button)`
   padding: 5px 50px;
 
   border: none;

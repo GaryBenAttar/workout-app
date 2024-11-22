@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import {
   SettingsContainer,
@@ -32,9 +32,11 @@ const Settings = () => {
         fields={fields}
       />
       <FieldOptionsContainer>
-        <SaveChangesButton onClick={handleSaveChanges}>
-          Save Changes
-        </SaveChangesButton>
+        {activeField === "profile" && (
+          <SaveChangesButton buttonType={"blue"} onClick={handleSaveChanges}>
+            Save Changes
+          </SaveChangesButton>
+        )}
 
         {fields
           .filter((field) => field.name === activeField)[0]
