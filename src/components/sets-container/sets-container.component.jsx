@@ -12,7 +12,6 @@ import {
 } from "./sets-container.styles";
 
 import NewSet from "../new-set/new-set.component";
-
 const SetsContainer = ({
   inProgress,
   exerciseSets,
@@ -24,8 +23,9 @@ const SetsContainer = ({
       ...previousState,
       {
         id: exerciseSets.length + 1,
-        reps: "",
-        weight: "",
+        reps: null,
+        weight: null,
+        volume: 0,
         done: false,
       },
     ]);
@@ -39,6 +39,7 @@ const SetsContainer = ({
               id: id,
               reps: reps,
               weight: weight,
+              volume: reps * weight,
               done: done,
             }
           : set
@@ -54,9 +55,7 @@ const SetsContainer = ({
         .map((set) => {
           return {
             id: i++,
-            reps: set.reps,
-            weight: set.weight,
-            done: set.done,
+            ...set,
           };
         }),
     ]);

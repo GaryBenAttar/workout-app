@@ -29,6 +29,7 @@ const CreateRoutine = () => {
         {
           id: Date.now(),
           title: exercise.title,
+          note: null,
           sets: [],
         },
       ],
@@ -36,13 +37,11 @@ const CreateRoutine = () => {
   };
 
   const handleSaveRoutine = () => {
-    const mode = routine.id ? "edit-routine" : "create-routine";
-    mode === "create-routine" && setRoutinesList([...routinesList, routine]);
-
-    mode === "edit-routine" &&
-      setRoutinesList(
-        routinesList.map((obj) => (obj.id === routine.id ? routine : obj))
-      );
+    routinesList.find((obj) => obj.id === routine.id)
+      ? setRoutinesList(
+          routinesList.map((obj) => (obj.id === routine.id ? routine : obj))
+        )
+      : setRoutinesList([...routinesList, routine]);
 
     navigate("/routines");
   };
@@ -54,8 +53,7 @@ const CreateRoutine = () => {
           <CreateRoutineHeading>Create Routine</CreateRoutineHeading>
           <SaveRoutineButton
             buttonType={"blue"}
-            // Check why && does not work
-            onClick={title !== "" ? () => handleSaveRoutine() : () => {}}
+            onClick={title !== "" ? () => handleSaveRoutine() : null}
             disabled={title === ""}
           >
             Save Routine

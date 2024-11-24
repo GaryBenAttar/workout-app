@@ -5,6 +5,7 @@ import {
   LogoSpan,
   LogoStyled,
   NavigationContainer,
+  NavigationHeader,
   NavigationLinks,
 } from "./navigation.styles";
 
@@ -17,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import NavLink from "../../components/nav-link/nav-link.component";
+import SignOut from "../../components/sign-out/sign-out.component";
 
 const routes = [
   { name: "feed", path: "/", icon: faHome },
@@ -40,26 +42,30 @@ const Navigation = () => {
   return (
     <>
       <NavigationContainer>
-        <LogoContainer onClick={handleLogoClick}>
-          <LogoStyled />
-          <LogoSpan>Workouts</LogoSpan>
-        </LogoContainer>
+        <NavigationHeader>
+          <LogoContainer onClick={handleLogoClick}>
+            <LogoStyled />
+            <LogoSpan>Workouts</LogoSpan>
+          </LogoContainer>
 
-        <NavigationLinks>
-          {routes.map((route) => {
-            const { name, path, icon } = route;
+          <NavigationLinks>
+            {routes.map((route) => {
+              const { name, path, icon } = route;
 
-            return (
-              <NavLink
-                activeNavLink={activeNavLink}
-                name={name}
-                route={path}
-                icon={icon}
-                key={name}
-              />
-            );
-          })}
-        </NavigationLinks>
+              return (
+                <NavLink
+                  activeNavLink={activeNavLink}
+                  name={name}
+                  route={path}
+                  icon={icon}
+                  key={name}
+                />
+              );
+            })}
+          </NavigationLinks>
+        </NavigationHeader>
+
+        <SignOut />
       </NavigationContainer>
       <Outlet />
     </>

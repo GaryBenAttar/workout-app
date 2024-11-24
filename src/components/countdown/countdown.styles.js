@@ -9,7 +9,7 @@ export const CountdownContainer = styled.div`
   top: 0;
   left: 0;
 
-  height: 50px;
+  height: 70px;
   width: 100vw;
 
   background-color: ${(props) => props.theme.color.sectionBackground};
@@ -17,4 +17,13 @@ export const CountdownContainer = styled.div`
   border: ${(props) => props.theme.borders};
 `;
 
-export const CountDownSpan = styled.span``;
+export const CountDownSpan = styled.span`
+  display: flex;
+  gap: 20px;
+
+  color: ${(props) => props.theme.color.blue};
+`;
+
+export const AddSecondsSpan = styled.span``;
+
+export const RemoveSecondsSpan = styled.span``;

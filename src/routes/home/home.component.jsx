@@ -12,9 +12,9 @@ import {
 
 import WorkoutHistoryCard from "../../components/workout-history-card/workout-history-card.component";
 import UserCard from "../../components/user-card/user-card.component";
-// import SuggestedAthletes from "../../components/suggested-athletes/suggested-athletes.component";
 import { UserContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../../utils/firebase.utils";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,14 +22,13 @@ const Home = () => {
   const { workouts } = user;
 
   const handleDeleteWorkout = (date) => {
-    setUser((previousState) => {
-      return {
-        ...previousState,
-        workouts: [
-          ...previousState.workouts.filter((obj) => obj.date !== date),
-        ],
-      };
-    });
+    const newUserData = {
+      ...user,
+      workouts: [...user.workouts.filter((obj) => obj.date !== date)],
+    };
+
+    setUser(newUserData);
+    updateUser(user.id, newUserData);
   };
 
   return (
@@ -58,7 +57,6 @@ const Home = () => {
       </WorkoutsHistoryContainer>
       <UsersContainer>
         <UserCard />
-        {/* <SuggestedAthletes /> */}
       </UsersContainer>
     </HomeContainer>
   );

@@ -14,11 +14,11 @@ const StartWorkout = () => {
   const location = useLocation();
   const startRoutine = location.state?.routine;
 
+  const { routinesList } = useContext(RoutinesContext);
+
   const [routineStart, setRoutineStart] = useState(
     startRoutine ? startRoutine : {}
   );
-
-  const { routinesList } = useContext(RoutinesContext);
 
   const emptyRoutine = {
     id: Date.now(),

@@ -12,16 +12,14 @@ import Library from "../library/library.component";
 import { UserContext } from "../../contexts/user.context";
 import WorkoutSummary from "../workout-summary/workout-summary.component";
 import ExercisesList from "../exercices-list/exercises-list.component";
+import { updateUser } from "../../utils/firebase.utils";
 
 const NewWorkout = ({ routineStart }) => {
   const navigate = useNavigate();
 
   const { user, setUser } = useContext(UserContext);
 
-  const [routine, setRoutine] = useState({
-    ...routineStart,
-    volume: 0,
-  });
+  const [routine, setRoutine] = useState(routineStart);
   const { exercises } = routine;
 
   const [volume, setVolume] = useState(0);
@@ -49,8 +47,8 @@ const NewWorkout = ({ routineStart }) => {
             acc +
             Number(
               exercise.sets.reduce(
-                (acc, set) =>
-                  set.done ? acc + Number(set.weight * set.reps) : acc,
+                (setsAcc, set) =>
+                  set.done ? acc + Number(set.weight * set.reps) : setsAcc,
                 0
               )
             ),
@@ -59,10 +57,6 @@ const NewWorkout = ({ routineStart }) => {
       ),
     [exercises]
   );
-
-  const handleDiscardWorkout = () => {
-    navigate("/");
-  };
 
   const setsDone = exercises.filter(
     (exercise) => exercise.sets.filter((set) => set.done).length > 0
@@ -94,11 +88,11 @@ const NewWorkout = ({ routineStart }) => {
       currentDate.getMinutes() < 10 ? "0" : ""
     }${currentDate.getMinutes()}`;
 
-    setUser({
+    const newUserData = {
       ...user,
       workouts: [
         {
-          name: routine.title,
+          name: routine.title || null,
           user: "Vailrog",
           date: formattedDate,
           duration: formattedDuration,
@@ -108,7 +102,12 @@ const NewWorkout = ({ routineStart }) => {
         },
         ...user.workouts,
       ],
-    });
+    };
+
+    setUser(newUserData);
+
+    updateUser(user.id, newUserData);
+
     navigate("/");
   };
 
@@ -121,6 +120,7 @@ const NewWorkout = ({ routineStart }) => {
       />
       <EndWorkoutButtonsContainer>
         <FinishWorkoutButton
+          buttonType={"blue"}
           onClick={() =>
             setsDone > 0
               ? handleFinishWorkout()
@@ -129,7 +129,7 @@ const NewWorkout = ({ routineStart }) => {
         >
           Finish
         </FinishWorkoutButton>
-        <DiscardWorkoutButton onClick={handleDiscardWorkout}>
+        <DiscardWorkoutButton buttonType="red" onClick={() => navigate("/")}>
           Discard Workout
         </DiscardWorkoutButton>
       </EndWorkoutButtonsContainer>
@@ -148,6 +148,7 @@ const NewWorkout = ({ routineStart }) => {
                 {
                   id: Date.now(),
                   title: exercise.title,
+                  note: null,
                   sets: [{ id: 1, reps: "", weight: "", done: false }],
                 },
               ],

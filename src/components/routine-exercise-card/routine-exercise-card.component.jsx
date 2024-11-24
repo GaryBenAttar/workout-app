@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   RoutineExerciseCardContainer,
@@ -29,14 +29,15 @@ const RoutineExerciseCard = ({ exercise, inProgress, setRoutine }) => {
             id: 1,
             reps: "",
             weight: "",
+            volume: 0,
             done: false,
           },
         ]
   );
 
-  const [restTime, setRestTime] = useState("Off");
-
   const [note, setNote] = useState(exercise.note);
+
+  const restTime = useRef("Off");
 
   useEffect(() => {
     setRoutine((previousState) => ({
@@ -66,8 +67,8 @@ const RoutineExerciseCard = ({ exercise, inProgress, setRoutine }) => {
   }
 
   const handleRestTime = (event) => {
-    const restTime = event.target.value;
-    setRestTime((timerArray.indexOf(restTime) + 1) * 5);
+    const rest = event.target.value;
+    restTime.current = (timerArray.indexOf(rest) + 1) * 5;
   };
 
   const currentExercise = exercisesList.filter(
@@ -103,7 +104,7 @@ const RoutineExerciseCard = ({ exercise, inProgress, setRoutine }) => {
         exerciseSets={exerciseSets}
         setExerciseSets={setExerciseSets}
         inProgress={inProgress}
-        restTime={restTime}
+        restTime={restTime.current}
       />
     </RoutineExerciseCardContainer>
   );

@@ -25,33 +25,13 @@ export const EndWorkoutButtonsContainer = styled.div`
 `;
 
 export const DiscardWorkoutButton = styled(Button)`
-  color: red;
+  background-color: red;
+  color: white;
 
   padding: 10px;
   border: none;
-
-  background-color: ${(props) => props.theme.color.bodyBackground};
-
-  &:hover {
-    color: white;
-    background-color: red;
-
-    border-radius: 4px;
-  }
 `;
 
 export const FinishWorkoutButton = styled(Button)`
-  color: ${(props) => props.theme.color.blue};
-
   padding: 10px;
-  border: none;
-
-  background-color: ${(props) => props.theme.color.bodyBackground};
-
-  &:hover {
-    color: white;
-    background-color: ${(props) => props.theme.color.blue};
-
-    border-radius: 4px;
-  }
 `;

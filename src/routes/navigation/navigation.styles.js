@@ -6,16 +6,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
 
   min-width: 250px;
   min-height: 100vh;
 
+  border-right: ${(props) => props.theme.borders};
+  background-color: ${(props) => props.theme.color.sectionBackground};
+`;
+
+export const NavigationHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
   padding: 20px;
   margin-right: 50px;
 
-  border-right: ${(props) => props.theme.borders};
-  background-color: ${(props) => props.theme.color.sectionBackground};
+  width: 100%;
 `;
 
 export const LogoContainer = styled.div`

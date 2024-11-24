@@ -14,14 +14,13 @@ import {
   UserSummaryTitleSpan,
 } from "./user-card.styles";
 
-import UserImage from "../../assets/logo_panda.png";
 import { UserContext } from "../../contexts/user.context";
 
 const UserCard = () => {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
-  const { username, fullname, workouts } = user;
+  const { username, fullname, photo, workouts } = user;
 
   const handleSeeProfile = () => {
     navigate("settings");
@@ -29,7 +28,7 @@ const UserCard = () => {
 
   return (
     <UserCardContainer>
-      <UserImageContainer alt="user" src={UserImage} />
+      <UserImageContainer alt="user" src={photo} />
       <UserNamesContainer>
         <UsernameSpan>{username}</UsernameSpan>
         <FullnameSpan>{fullname}</FullnameSpan>
