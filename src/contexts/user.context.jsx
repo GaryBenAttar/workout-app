@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 export const UserContext = createContext({
   user: {},
-  setUser: () => null,
+  setUser: () => {},
 });
 
 const initialUser = {};

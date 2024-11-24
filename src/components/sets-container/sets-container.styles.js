@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../button/button.component";
+import Button from "../ui-components/button/button.component";
 
 export const SetsRepsContainer = styled.div`
   display: flex;

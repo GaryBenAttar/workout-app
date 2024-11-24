@@ -7,8 +7,8 @@ import {
 
 import exercisesBaseList from "../../exercises.json";
 
-import ExerciseLibraryCard from "../exercise-library-card/exercise-library-card.component";
-import LibrarySearch from "../library-search/library-search.component";
+import ExerciseLibraryCard from "./exercise-library-card/exercise-library-card.component";
+import LibrarySearch from "./library-search/library-search.component";
 
 const Library = ({ handleExerciseClick }) => {
   const [exercisesList, setExercisesList] = useState(exercisesBaseList);

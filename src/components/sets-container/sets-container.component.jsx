@@ -11,7 +11,7 @@ import {
   WeightLiftedSpan,
 } from "./sets-container.styles";
 
-import NewSet from "../new-set/new-set.component";
+import NewSet from "./new-set/new-set.component";
 const SetsContainer = ({
   inProgress,
   exerciseSets,
@@ -23,8 +23,8 @@ const SetsContainer = ({
       ...previousState,
       {
         id: exerciseSets.length + 1,
-        reps: null,
-        weight: null,
+        reps: "",
+        weight: "",
         volume: 0,
         done: false,
       },

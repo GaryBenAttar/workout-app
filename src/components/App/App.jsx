@@ -1,15 +1,16 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Navigation from "../../routes/navigation/navigation.component";
-import Home from "../../routes/home/home.component";
-import Routines from "../../routes/routines/routines.component";
-import Exercises from "../../routes/exercises/exercises.component";
-import Profile from "../../routes/profile/profile.component";
-import Settings from "../../routes/settings/settings.component";
-import CreateRoutine from "../../routes/create-routine/create-routine.component";
+import Authentication from "../authentication/authentication.component";
+import Navigation from "../navigation/navigation.component";
+import Home from "../home/home.component";
+import Routines from "../routines/routines.component";
+import Exercises from "../exercises/exercises.component";
+import Profile from "../profile/profile.component";
+import Settings from "../settings/settings.component";
+import CreateRoutine from "../routines/create-routine/create-routine.component";
+import StartWorkout from "../routines/start-workout/start-workout.component";
 import { Theme } from "../../utils/theme";
-import StartWorkout from "../../routes/start-workout/start-workout.component";
 import { AppContainer } from "./App.styles";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -27,7 +28,6 @@ import {
 
 import { RoutinesProvider } from "../../contexts/routines.context";
 import { UserContext } from "../../contexts/user.context";
-import Authentication from "../../routes/authentication/authentication.component";
 
 library.add(faDumbbell);
 library.add(faPen);
