@@ -53,7 +53,6 @@ const NewSet = ({
     }
   };
 
-  console.log("render");
   return (
     <NewSetContainer done={done}>
       <NewSetId>{id}</NewSetId>

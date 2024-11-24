@@ -88,11 +88,11 @@ const NewWorkout = ({ routineStart }) => {
       currentDate.getMinutes() < 10 ? "0" : ""
     }${currentDate.getMinutes()}`;
 
-    updateUser(user.id, {
+    const newUserData = {
       ...user,
       workouts: [
         {
-          name: routine.title,
+          name: routine.title || null,
           user: "Vailrog",
           date: formattedDate,
           duration: formattedDuration,
@@ -102,7 +102,11 @@ const NewWorkout = ({ routineStart }) => {
         },
         ...user.workouts,
       ],
-    });
+    };
+
+    setUser(newUserData);
+
+    updateUser(user.id, newUserData);
 
     navigate("/");
   };
@@ -144,6 +148,7 @@ const NewWorkout = ({ routineStart }) => {
                 {
                   id: Date.now(),
                   title: exercise.title,
+                  note: null,
                   sets: [{ id: 1, reps: "", weight: "", done: false }],
                 },
               ],

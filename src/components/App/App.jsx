@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 import Navigation from "../../routes/navigation/navigation.component";
 import Home from "../../routes/home/home.component";
@@ -26,12 +26,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RoutinesProvider } from "../../contexts/routines.context";
-import {
-  addUser,
-  fetchData,
-  signInWithGoogle,
-} from "../../utils/firebase.utils";
 import { UserContext } from "../../contexts/user.context";
+import Authentication from "../../routes/authentication/authentication.component";
 
 library.add(faDumbbell);
 library.add(faPen);
@@ -43,56 +39,30 @@ library.add(faHouse);
 library.add(faMagnifyingGlass);
 
 const App = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  const [signInResult, setSignInResult] = useState({});
-  const data = useRef([]);
-  console.log(data.current);
-
-  useEffect(() => {
-    fetchData("users")
-      .then((result) => (data.current = result))
-      .catch((error) => console.log(error));
-  }, []);
-
-  useEffect(() => {
-    !data.current.find((obj) => obj.uid === signInResult.uid) &&
-      addUser(signInResult);
-    setUser(
-      data.current.find((obj) => obj.uid === signInResult.uid) || {
-        uid: signInResult.uid,
-        createdAt: signInResult.createdAt,
-        fullname: signInResult.displayName,
-        photo: signInResult.photoURL,
-        workouts: [],
-      }
-    );
-  }, [signInResult]);
+  console.log(user);
 
   return (
     <Theme>
       <AppContainer>
-        {user.uid ? (
-          <Routes>
-            <Route path="/" element={<Navigation />}>
-              <Route index element={<Home />} />
-              <Route path="routines" element={<RoutinesProvider />}>
-                <Route index element={<Routines />} />
-                <Route path="create-routine" element={<CreateRoutine />} />
-                <Route path="start-workout" element={<StartWorkout />} />
-              </Route>
-              <Route path="exercises" element={<Exercises />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
-          </Routes>
-        ) : (
-          <button
-            onClick={async () => setSignInResult(await signInWithGoogle())}
+        <Routes>
+          <Route
+            path="/"
+            element={!user.uid ? <Navigate to="/auth" /> : <Navigation />}
           >
-            Sign In With Google
-          </button>
-        )}
+            <Route index element={<Home />} />
+            <Route path="routines" element={<RoutinesProvider />}>
+              <Route index element={<Routines />} />
+              <Route path="create-routine" element={<CreateRoutine />} />
+              <Route path="start-workout" element={<StartWorkout />} />
+            </Route>
+            <Route path="exercises" element={<Exercises />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+          <Route path="auth" element={<Authentication />} />
+        </Routes>
       </AppContainer>
     </Theme>
   );

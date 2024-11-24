@@ -29,6 +29,7 @@ const CreateRoutine = () => {
         {
           id: Date.now(),
           title: exercise.title,
+          note: null,
           sets: [],
         },
       ],
