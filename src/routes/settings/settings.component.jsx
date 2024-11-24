@@ -13,7 +13,7 @@ import { SettingsContext } from "../../contexts/settings.context";
 
 const Settings = () => {
   const [activeField, setActiveField] = useState("profile");
-  const { setUsername } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const { settings } = useContext(SettingsContext);
 
   const handleActiveField = (field) => {
@@ -21,7 +21,12 @@ const Settings = () => {
   };
 
   const handleSaveChanges = () => {
-    setUsername(settings.name);
+    setUser((previousState) => ({
+      ...previousState,
+      userImage: settings.userImage,
+      username: settings.name,
+      bio: settings.bio,
+    }));
   };
 
   return (

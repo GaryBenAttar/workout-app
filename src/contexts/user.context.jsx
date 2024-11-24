@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-
+import BaseUserImage from "../assets/logo_panda.png";
 export const UserContext = createContext({
   user: {},
   setUser: () => null,
@@ -14,11 +14,11 @@ const getInitialWorkouts = () => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    username: "Vailorg",
-    fullname: "Gary Ben Attar",
-    followers: 135,
-    following: 46,
-    workouts: getInitialWorkouts(),
+    uid: "",
+    username: "",
+    fullname: "",
+    userImage: "",
+    workouts: [],
   });
 
   useEffect(() => {

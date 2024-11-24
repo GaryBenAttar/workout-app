@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import { SettingsContext } from "../../contexts/settings.context";
 import {
@@ -18,49 +18,60 @@ const SettingsOptions = ({ setting }) => {
   const { settings, setSettings } = useContext(SettingsContext);
   const { name, options } = setting;
 
+  const { user } = useContext(UserContext);
+
   const [changePass, setChangePass] = useState({
     currentPass: "",
     newPass: "",
   });
 
-  const {} = useContext(UserContext);
-
   const handleOptionChange = (event, payload) => {
-    name === "name" &&
-      setSettings({
-        ...settings,
-        name: event.target.value,
-      });
+    switch (name) {
+      case "image":
+        setSettings({
+          ...settings,
+          userImage: event.target.files[0],
+        });
+        break;
+      case "name":
+        setSettings({
+          ...settings,
+          name: event.target.value,
+        });
+        break;
+      case "bio":
+        setSettings({
+          ...settings,
+          bio: event.target.value,
+        });
+        break;
+      case "current theme":
+        setSettings({ ...settings, theme: event.target.value.toLowerCase() });
+        break;
+      case "weight unit":
+        setSettings({ ...settings, weightUnit: event.target.value });
+        break;
+      case "distance unit":
+        setSettings({ ...settings, distanceUnit: event.target.value });
+        break;
+      case "body measurement unit":
+        setSettings({ ...settings, bodyMeasurementUnit: event.target.value });
+        break;
+      case "private profile":
+        event.target.value === "On"
+          ? setSettings({ ...settings, private: true })
+          : setSettings({ ...settings, private: false });
+        break;
+      case "change password":
+        if (changePass.currentPass === settings.password) {
+          setSettings({ ...settings, password: payload });
+        } else {
+          alert("Invalid current password");
+        }
+        break;
 
-    name === "bio" &&
-      setSettings({
-        ...settings,
-        bio: event.target.value,
-      });
-
-    name === "current theme" &&
-      setSettings({ ...settings, theme: event.target.value.toLowerCase() });
-
-    name === "weight unit" &&
-      setSettings({ ...settings, weightUnit: event.target.value });
-
-    name === "distance unit" &&
-      setSettings({ ...settings, distanceUnit: event.target.value });
-
-    name === "body measurement unit" &&
-      setSettings({ ...settings, bodyMeasurementUnit: event.target.value });
-
-    name === "private profile" &&
-      (event.target.value === "On"
-        ? setSettings({ ...settings, private: true })
-        : setSettings({ ...settings, private: false }));
-
-    if (name === "change password") {
-      if (changePass.currentPass === settings.password) {
-        setSettings({ ...settings, password: payload });
-      } else {
-        alert("Invalid current password");
-      }
+      default:
+        break;
     }
   };
 
@@ -79,7 +90,9 @@ const SettingsOptions = ({ setting }) => {
           ))}
         </SettingSelect>
       ) : null}
-
+      {name === "image" && (
+        <SettingsOptionsInput value={settings.userImage} type="file" />
+      )}
       {name === "name" && (
         <SettingsOptionsInput
           value={settings.name}

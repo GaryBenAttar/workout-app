@@ -11,11 +11,12 @@ const getInitialSettings = () => {
     ? JSON.parse(settingsStored)
     : {
         theme: "light",
+        name: "",
+        bio: "",
+        userImage: "",
         weightUnit: "kg",
         distanceUnit: "kilometers",
         bodyMeasurementUnit: "cm",
-        name: "",
-        bio: "",
         private: true,
         password: "testPass",
       };

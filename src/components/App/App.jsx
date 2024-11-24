@@ -1,3 +1,4 @@
+import { useContext, useEffect, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Navigation from "../../routes/navigation/navigation.component";
@@ -25,6 +26,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { RoutinesProvider } from "../../contexts/routines.context";
+import {
+  addUser,
+  fetchData,
+  signInWithGoogle,
+} from "../../utils/firebase.utils";
+import { UserContext } from "../../contexts/user.context";
 
 library.add(faDumbbell);
 library.add(faPen);
@@ -36,22 +43,56 @@ library.add(faHouse);
 library.add(faMagnifyingGlass);
 
 const App = () => {
+  const { user, setUser } = useContext(UserContext);
+
+  const [signInResult, setSignInResult] = useState({});
+  const data = useRef([]);
+  console.log(data.current);
+
+  useEffect(() => {
+    fetchData("users")
+      .then((result) => (data.current = result))
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    !data.current.find((obj) => obj.uid === signInResult.uid) &&
+      addUser(signInResult);
+    setUser(
+      data.current.find((obj) => obj.uid === signInResult.uid) || {
+        uid: signInResult.uid,
+        createdAt: signInResult.createdAt,
+        fullname: signInResult.displayName,
+        photo: signInResult.photoURL,
+        workouts: [],
+      }
+    );
+  }, [signInResult]);
+
   return (
     <Theme>
       <AppContainer>
-        <Routes>
-          <Route path="/" element={<Navigation />}>
-            <Route index element={<Home />} />
-            <Route path="routines" element={<RoutinesProvider />}>
-              <Route index element={<Routines />} />
-              <Route path="create-routine" element={<CreateRoutine />} />
-              <Route path="start-workout" element={<StartWorkout />} />
+        {user.uid ? (
+          <Routes>
+            <Route path="/" element={<Navigation />}>
+              <Route index element={<Home />} />
+              <Route path="routines" element={<RoutinesProvider />}>
+                <Route index element={<Routines />} />
+                <Route path="create-routine" element={<CreateRoutine />} />
+                <Route path="start-workout" element={<StartWorkout />} />
+              </Route>
+              <Route path="exercises" element={<Exercises />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
-            <Route path="exercises" element={<Exercises />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        </Routes>
+          </Routes>
+        ) : (
+          <button
+            onClick={async () => setSignInResult(await signInWithGoogle())}
+          >
+            Sign In With Google
+          </button>
+        )}
       </AppContainer>
     </Theme>
   );

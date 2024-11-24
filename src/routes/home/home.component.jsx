@@ -12,7 +12,6 @@ import {
 
 import WorkoutHistoryCard from "../../components/workout-history-card/workout-history-card.component";
 import UserCard from "../../components/user-card/user-card.component";
-// import SuggestedAthletes from "../../components/suggested-athletes/suggested-athletes.component";
 import { UserContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
 
@@ -58,7 +57,6 @@ const Home = () => {
       </WorkoutsHistoryContainer>
       <UsersContainer>
         <UserCard />
-        {/* <SuggestedAthletes /> */}
       </UsersContainer>
     </HomeContainer>
   );
