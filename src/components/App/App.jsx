@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Navigation from "../../routes/navigation/navigation.component";
 import Home from "../../routes/home/home.component";
