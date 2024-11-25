@@ -37,7 +37,7 @@ const CreateRoutine = () => {
   };
 
   const handleSaveRoutine = () => {
-    if (title !== "") return;
+    if (title === "") return;
 
     routinesList.find((obj) => obj.id === routine.id)
       ? setRoutinesList(

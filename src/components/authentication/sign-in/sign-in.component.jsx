@@ -54,6 +54,7 @@ const SignIn = () => {
       data.current.find((obj) => obj.uid === signInResult.current.uid) || {
         uid: signInResult.current.uid,
         createdAt: signInResult.current.createdAt,
+        username: signInResult.username,
         fullname: signInResult.current.displayName,
         photo: signInResult.current.photoURL,
         workouts: [],

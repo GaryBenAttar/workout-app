@@ -37,14 +37,14 @@ const SignUp = () => {
       await createUserDocumentFromAuth(user, {
         username: signUpDetails.username,
       });
+
+      setSignUpDetails(emptySignUpDetails);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create a user, email already in use");
       }
       console.log("user creation failed", error);
     }
-
-    setSignUpDetails(emptySignUpDetails);
   };
 
   return (
