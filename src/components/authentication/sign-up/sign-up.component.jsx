@@ -18,31 +18,33 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   };
-  const [signUpDetails, setSignUpDetails] = useState(emptySignUpDetails);
 
-  const { username, email, password, confirmPassword } = signUpDetails;
+  const [signUpDetails, setSignUpDetails] = useState(emptySignUpDetails);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (signUpDetails.password !== signUpDetails.confirmPassword) {
       alert("passwords do not match");
       return;
     }
 
     try {
       const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
+        signUpDetails.email,
+        signUpDetails.password
       );
-      await createUserDocumentFromAuth(user, { username });
-      setSignUpDetails(emptySignUpDetails);
+      await createUserDocumentFromAuth(user, {
+        username: signUpDetails.username,
+      });
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create a user, email already in use");
       }
       console.log("user creation failed", error);
     }
+
+    setSignUpDetails(emptySignUpDetails);
   };
 
   return (
@@ -52,7 +54,7 @@ const SignUp = () => {
         <SignUpFormInput
           required
           label="Username"
-          value={username}
+          value={signUpDetails.username}
           onChange={(event) =>
             setSignUpDetails({
               ...signUpDetails,
@@ -64,7 +66,7 @@ const SignUp = () => {
           required
           label="Email"
           type="email"
-          value={email}
+          value={signUpDetails.email}
           onChange={(event) =>
             setSignUpDetails({
               ...signUpDetails,
@@ -76,7 +78,7 @@ const SignUp = () => {
           required
           label="Password"
           type="password"
-          value={password}
+          value={signUpDetails.password}
           onChange={(event) =>
             setSignUpDetails({
               ...signUpDetails,
@@ -88,7 +90,7 @@ const SignUp = () => {
           required
           label="Confirm Password"
           type="password"
-          value={confirmPassword}
+          value={signUpDetails.confirmPassword}
           onChange={(event) =>
             setSignUpDetails({
               ...signUpDetails,

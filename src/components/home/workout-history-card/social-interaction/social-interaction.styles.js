@@ -25,8 +25,8 @@ export const SocialInteraction = styled.div`
   width: 33%;
   margin: 10px 0px;
 
-  border-left: ${(props) => props.middle === "true" && props.theme.borders};
-  border-right: ${(props) => props.middle === "true" && props.theme.borders};
+  border-left: ${(props) => props.$middle === "true" && props.theme.borders};
+  border-right: ${(props) => props.$middle === "true" && props.theme.borders};
 `;
 
 export const CommentContainer = styled.div`

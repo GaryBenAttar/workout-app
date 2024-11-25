@@ -27,7 +27,6 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-  const { email, password } = userCredentials;
 
   const signInResult = useRef({});
   const data = useRef([]);
@@ -38,7 +37,7 @@ const SignIn = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const handleSignIn = async (event, method) => {
+  const handleSignIn = async (event, method, email, password) => {
     event.preventDefault();
 
     if (method === "google") signInResult.current = await signInWithGoogle();
@@ -88,7 +87,14 @@ const SignIn = () => {
         />
         <SignInButtonContainer>
           <SignInButton
-            onClick={(event) => handleSignIn(event, "email-password")}
+            onClick={(event) =>
+              handleSignIn(
+                event,
+                "email-password",
+                userCredentials.email,
+                userCredentials.password
+              )
+            }
           >
             Sign In
           </SignInButton>

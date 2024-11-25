@@ -44,7 +44,10 @@ const NewSet = ({
     if (reps > 0) {
       setIsDone((previousState) => ({
         done: !previousState.done,
-        toggleCountdown: !previousState.toggleCountdown,
+        toggleCountdown:
+          restTime !== "Off"
+            ? !previousState.toggleCountdown
+            : previousState.toggleCountdown,
         countdown: restTime,
       }));
       setExerciseSetsValues(id, reps, weight, !done);
@@ -54,7 +57,7 @@ const NewSet = ({
   };
 
   return (
-    <NewSetContainer done={done}>
+    <NewSetContainer $done={done ? "done" : ""}>
       <NewSetId>{id}</NewSetId>
       <NewSetInput
         type="number"
@@ -77,7 +80,7 @@ const NewSet = ({
       ) : (
         <StyledIcon icon={faX} onClick={() => deleteSet(id)} />
       )}
-      {toggleCountdown && countdown !== 0 && countdown !== "Off" && (
+      {toggleCountdown && countdown !== 0 && (
         <Countdown countdown={countdown} />
       )}
     </NewSetContainer>

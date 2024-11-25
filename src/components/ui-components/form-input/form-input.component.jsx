@@ -5,11 +5,11 @@ import {
   LabelStyled,
 } from "./form-input.styles";
 
-const FormInput = ({ label, onChange }) => {
+const FormInput = ({ value, label, onChange, required }) => {
   return (
     <FormInputContainer>
       <LabelStyled>{label}</LabelStyled>
-      <InputStyled onChange={onChange} />
+      <InputStyled onChange={onChange} required={required} value={value} />
     </FormInputContainer>
   );
 };

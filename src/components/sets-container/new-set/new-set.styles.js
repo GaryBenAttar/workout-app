@@ -12,7 +12,7 @@ export const NewSetContainer = styled.div`
   padding: 10px;
 
   background-color: ${(props) =>
-    props.done ? "#3cc63c" : props.theme.color.input};
+    props.$done === "done" ? "#3cc63c" : props.theme.color.input};
 
   border-radius: 4px;
 `;

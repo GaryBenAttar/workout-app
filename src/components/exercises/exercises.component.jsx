@@ -11,7 +11,7 @@ import {
   NoExerciseSpan,
   StyledIcon,
 } from "./exercises.styles";
-import ExerciseInfoCard from "../exercise-info-card/exercise-info-card.component";
+import ExerciseInfoCard from "./exercise-info-card/exercise-info-card.component";
 
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 

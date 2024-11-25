@@ -29,7 +29,7 @@ const SocialInteractions = () => {
             onClick={() => setLiked(!liked)}
           />
         </SocialInteraction>
-        <SocialInteraction middle="true">
+        <SocialInteraction $middle="true">
           <StyledIcon icon={faComment} />
         </SocialInteraction>
         <SocialInteraction>
