@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   LibraryContainer,
   ExercisesContainer,
   ExercisesHeading,
 } from "./library.styles";
 
-import exercisesBaseList from "../../exercises.json";
-
 import ExerciseLibraryCard from "./exercise-library-card/exercise-library-card.component";
 import LibrarySearch from "./library-search/library-search.component";
+import { fetchData } from "../../utils/firebase.utils";
 
 const Library = ({ handleExerciseClick }) => {
-  const [exercisesList, setExercisesList] = useState(exercisesBaseList);
+  const [exercisesList, setExercisesList] = useState([]);
+
+  useEffect(() => {
+    fetchData("exercises")
+      .then((response) => response)
+      .then((result) => setExercisesList(result))
+      .catch((error) => console.log(error));
+  }, []);
 
   const handleSearchExercise = (value) => {
     // look for search with debounce
@@ -22,7 +28,7 @@ const Library = ({ handleExerciseClick }) => {
     <LibraryContainer>
       <LibrarySearch
         onSearchExercise={handleSearchExercise}
-        exerciseList={exercisesList}
+        exercisesList={exercisesList}
       />
       <ExercisesContainer>
         <ExercisesHeading>Exercises</ExercisesHeading>

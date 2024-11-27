@@ -85,7 +85,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
     } catch (error) {
       console.log("error creating the user", error.message);
     }
-
     return userDocRef;
   }
 };
@@ -106,6 +105,7 @@ export const fetchData = async (myCollection) => {
     id: doc.id,
     ...doc.data(),
   }));
+
   return dataArray;
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ExerciseImage,
   SetContent,
@@ -6,8 +6,16 @@ import {
   WorkoutContentContainer,
   WorkoutDetailsHeading,
 } from "./workout-content.styles";
+import { fetchData } from "../../../../utils/firebase.utils";
 
-const WorkoutContent = ({ exercises, exercisesList }) => {
+const WorkoutContent = ({ exercises }) => {
+  const exercisesBaseList = useRef([]);
+  useEffect(() => {
+    fetchData("exercises")
+      .then((result) => (exercisesBaseList.current = result))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <WorkoutContentContainer>
       <WorkoutDetailsHeading>Workout</WorkoutDetailsHeading>
@@ -15,7 +23,7 @@ const WorkoutContent = ({ exercises, exercisesList }) => {
         const { sets, title } = exercise;
         const setsDone = sets.filter((set) => set.done).length;
 
-        const exerciseImage = exercisesList.filter(
+        const exerciseImage = exercisesBaseList.current.filter(
           (obj) => obj.title === exercise.title
         )[0].imageUrl;
 

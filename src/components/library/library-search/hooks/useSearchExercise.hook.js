@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
-import exerciseBaseList from "../../../../exercises.json";
-
-export const useSearchExercise = (onSearchExercise) => {
+export const useSearchExercise = (onSearchExercise, exercisesBaseList) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearchExercise = (event) => {
@@ -11,7 +9,7 @@ export const useSearchExercise = (onSearchExercise) => {
 
   useEffect(() => {
     onSearchExercise([
-      ...exerciseBaseList.filter((exercise) =>
+      ...exercisesBaseList.filter((exercise) =>
         exercise.title.toLowerCase().includes(searchValue)
       ),
     ]);

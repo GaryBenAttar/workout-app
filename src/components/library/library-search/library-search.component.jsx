@@ -10,9 +10,11 @@ import {
 } from "./library-search.styles";
 import { useSearchExercise } from "./hooks/useSearchExercise.hook";
 
-const LibrarySearch = ({ onSearchExercise }) => {
-  const { searchValue, handleSearchExercise } =
-    useSearchExercise(onSearchExercise);
+const LibrarySearch = ({ onSearchExercise, exercisesList }) => {
+  const { searchValue, handleSearchExercise } = useSearchExercise(
+    onSearchExercise,
+    exercisesList
+  );
 
   return (
     <LibrarySearchContainer>
