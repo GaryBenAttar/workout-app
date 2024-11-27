@@ -1,0 +1,3 @@
+export const ROUTINES_ACTION_TYPE = {
+  SET_ROUTINES_LIST: "routines/SET_ROUTINES_LIST",
+};

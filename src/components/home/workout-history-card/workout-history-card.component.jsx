@@ -8,7 +8,6 @@ import {
   WourkoutNameSpan,
 } from "./workout-history-card.styles";
 
-import exercisesList from "../../../exercises.json";
 import SocialInteractions from "./social-interaction/social-interaction.component";
 import WorkoutContent from "./workout-content/workout-content.component";
 import WorktoutHistoryCardHeader from "./workout-history-card-header/workout-history-card-header.component";
@@ -36,7 +35,7 @@ const WorkoutHistoryCard = ({ workout, handleDeleteWorkout }) => {
           </WorkoutDetails>
         </WorkoutDurationAndVolume>
       </WorkoutInfoContainer>
-      <WorkoutContent exercises={exercises} exercisesList={exercisesList} />
+      <WorkoutContent exercises={exercises} />
       <SocialInteractions />
     </WorkoutHistoryCardContainer>
   );
