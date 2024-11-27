@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -10,6 +9,7 @@ import {
   StyledIcon,
 } from "./new-set.styles";
 import Countdown from "./countdown/countdown.component";
+import { useSetValues } from "./hooks/useSetValues.hook";
 
 const NewSet = ({
   setExerciseSetsValues,
@@ -18,57 +18,28 @@ const NewSet = ({
   restTime,
   inProgress,
 }) => {
-  const { id, reps, weight } = set;
-
-  const [isDone, setIsDone] = useState({
-    done: false,
-    toggleCountdown: false,
-    countdown: restTime,
-  });
-
-  const { done, toggleCountdown, countdown } = isDone;
-
-  const handleChangeReps = (event) => {
-    if (event.target.value >= 0) {
-      setExerciseSetsValues(id, event.target.value, weight);
-    }
-  };
-
-  const handleChangeWeight = (event) => {
-    if (event.target.value >= 0) {
-      setExerciseSetsValues(id, reps, event.target.value);
-    }
-  };
-
-  const handleDone = () => {
-    if (reps > 0) {
-      setIsDone((previousState) => ({
-        done: !previousState.done,
-        toggleCountdown:
-          restTime !== "Off"
-            ? !previousState.toggleCountdown
-            : previousState.toggleCountdown,
-        countdown: restTime,
-      }));
-      setExerciseSetsValues(id, reps, weight, !done);
-    } else {
-      alert("You need to do at least 1 rep");
-    }
-  };
+  const {
+    done,
+    toggleCountdown,
+    countdown,
+    handleChangeReps,
+    handleChangeWeight,
+    handleDone,
+  } = useSetValues(setExerciseSetsValues, set, restTime);
 
   return (
     <NewSetContainer $done={done ? "done" : ""}>
-      <NewSetId>{id}</NewSetId>
+      <NewSetId>{set.id}</NewSetId>
       <NewSetInput
         type="number"
-        placeholder={reps}
-        value={reps}
+        placeholder={set.reps}
+        value={set.reps}
         onChange={handleChangeReps}
       />
       <NewSetInput
         type="number"
-        placeholder={weight}
-        value={weight}
+        placeholder={set.weight}
+        value={set.weight}
         onChange={handleChangeWeight}
       />
       {inProgress ? (
@@ -78,7 +49,7 @@ const NewSet = ({
           </DoneButton>
         </Done>
       ) : (
-        <StyledIcon icon={faX} onClick={() => deleteSet(id)} />
+        <StyledIcon icon={faX} onClick={() => deleteSet(set.id)} />
       )}
       {toggleCountdown && countdown !== 0 && (
         <Countdown countdown={countdown} />

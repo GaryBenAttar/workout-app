@@ -56,7 +56,7 @@ const CreateRoutine = () => {
           <SaveRoutineButton
             buttonType={"blue"}
             onClick={handleSaveRoutine}
-            disabled={title === ""}
+            $disabled={title === "" ? "disabled" : ""}
           >
             Save Routine
           </SaveRoutineButton>

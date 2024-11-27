@@ -8,23 +8,11 @@ import {
   SearchExerciseContainer,
   SearchExerciseInput,
 } from "./library-search.styles";
-
-import exerciseBaseList from "../../../exercises.json";
+import { useSearchExercise } from "./hooks/useSearchExercise.hook";
 
 const LibrarySearch = ({ onSearchExercise }) => {
-  const [searchValue, setSearchValue] = useState("");
-
-  const handleSearchExercise = (event) => {
-    setSearchValue(event.target.value);
-  };
-
-  useEffect(() => {
-    onSearchExercise([
-      ...exerciseBaseList.filter((exercise) =>
-        exercise.title.toLowerCase().includes(searchValue)
-      ),
-    ]);
-  }, [searchValue]);
+  const { searchValue, handleSearchExercise } =
+    useSearchExercise(onSearchExercise);
 
   return (
     <LibrarySearchContainer>

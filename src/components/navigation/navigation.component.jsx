@@ -29,11 +29,10 @@ const routes = [
 ];
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const activeNavLink =
     location.pathname === "/" ? "feed" : location.pathname.split("/")[1];
-
-  const navigate = useNavigate();
 
   const handleLogoClick = () => {
     navigate("/");

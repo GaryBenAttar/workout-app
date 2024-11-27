@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   SignUpButton,
   SignUpForm,
@@ -6,46 +5,10 @@ import {
   SignUpFormHeading,
   SignUpFormInput,
 } from "./sign-up.styles";
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../../utils/firebase.utils";
+import { useSignUp } from "./hooks/useSignUp.hook";
 
 const SignUp = () => {
-  const emptySignUpDetails = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-
-  const [signUpDetails, setSignUpDetails] = useState(emptySignUpDetails);
-
-  const handleSignUp = async (event) => {
-    event.preventDefault();
-
-    if (signUpDetails.password !== signUpDetails.confirmPassword) {
-      alert("passwords do not match");
-      return;
-    }
-
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        signUpDetails.email,
-        signUpDetails.password
-      );
-      await createUserDocumentFromAuth(user, {
-        username: signUpDetails.username,
-      });
-
-      setSignUpDetails(emptySignUpDetails);
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create a user, email already in use");
-      }
-      console.log("user creation failed", error);
-    }
-  };
+  const { signUpDetails, setSignUpDetails, handleSignUp } = useSignUp();
 
   return (
     <SignUpFormContainer>

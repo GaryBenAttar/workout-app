@@ -29,6 +29,9 @@ export const CreateRoutineHeading = styled.h2``;
 
 export const SaveRoutineButton = styled(Button)`
   height: 30px;
+
+  background-color: ${(props) =>
+    props.$disabled === "disabled" && props.theme.color.lightBlue};
 `;
 
 export const LibraryContainer = styled.div``;

@@ -41,8 +41,6 @@ library.add(faMagnifyingGlass);
 const App = () => {
   const { user } = useContext(UserContext);
 
-  console.log(user);
-
   return (
     <Theme>
       <AppContainer>

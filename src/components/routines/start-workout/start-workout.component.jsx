@@ -10,6 +10,12 @@ import { RoutinesContext } from "../../../contexts/routines.context";
 import NewWorkout from "./new-workout/new-workout.component";
 import { useLocation } from "react-router-dom";
 
+const emptyRoutine = {
+  id: Date.now(),
+  title: "",
+  exercises: [],
+};
+
 const StartWorkout = () => {
   const location = useLocation();
   const startRoutine = location.state?.routine;
@@ -19,12 +25,6 @@ const StartWorkout = () => {
   const [routineStart, setRoutineStart] = useState(
     startRoutine ? startRoutine : {}
   );
-
-  const emptyRoutine = {
-    id: Date.now(),
-    title: "",
-    exercises: [],
-  };
 
   return (
     <StartWorkoutContainer>

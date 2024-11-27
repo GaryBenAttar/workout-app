@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -9,107 +9,19 @@ import {
 } from "./new-workout.styles";
 
 import Library from "../../../library/library.component";
-import { UserContext } from "../../../../contexts/user.context";
 import WorkoutSummary from "./workout-summary/workout-summary.component";
 import ExercisesList from "../../../exercices-list/exercises-list.component";
 
-import { updateUser } from "../../../../utils/firebase.utils";
+import { useWorkoutSummary } from "./hooks/useWorkoutSummary.hook";
+import { useFinishWorkout } from "./hooks/useFinishWorkout.hook";
 
 const NewWorkout = ({ routineStart }) => {
   const navigate = useNavigate();
 
-  const { user, setUser } = useContext(UserContext);
-
   const [routine, setRoutine] = useState(routineStart);
-  const { exercises } = routine;
 
-  const [volume, setVolume] = useState(0);
-  const [duration, setDuration] = useState(0);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDuration((previousDuration) => previousDuration + 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [routine]);
-
-  const formattedDuration = `${
-    Math.floor(duration / 60) > 0 ? Math.floor(duration / 60) + "min" : ""
-  } ${duration % 60}s`;
-
-  useEffect(
-    () =>
-      setVolume(
-        exercises.reduce(
-          (acc, exercise) =>
-            acc +
-            Number(
-              exercise.sets.reduce(
-                (setsAcc, set) =>
-                  set.done ? acc + Number(set.weight * set.reps) : setsAcc,
-                0
-              )
-            ),
-          0
-        )
-      ),
-    [exercises]
-  );
-
-  const setsDone = exercises.filter(
-    (exercise) => exercise.sets.filter((set) => set.done).length > 0
-  ).length;
-
-  const handleFinishWorkout = () => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const currentDate = new Date();
-
-    const formattedDate = `${currentDate.getDate()} ${
-      months[currentDate.getMonth()]
-    } ${currentDate.getFullYear()}, ${
-      currentDate.getHours() < 10 ? "0" : ""
-    }${currentDate.getHours()}:${
-      currentDate.getMinutes() < 10 ? "0" : ""
-    }${currentDate.getMinutes()}`;
-
-    const newUserData = {
-      ...user,
-      workouts: [
-        {
-          name: routine.title,
-          date: formattedDate,
-          duration: formattedDuration,
-          volume: volume,
-          liked: false,
-          exercises: exercises,
-        },
-        ...user.workouts,
-      ],
-    };
-
-    setUser(newUserData);
-
-    updateUser(user.uid, newUserData);
-
-    navigate("/");
-  };
+  const { formattedDuration, volume, setsDone } = useWorkoutSummary(routine);
+  const { handleFinishWorkout } = useFinishWorkout(routine);
 
   return (
     <>
@@ -135,7 +47,7 @@ const NewWorkout = ({ routineStart }) => {
       </EndWorkoutButtonsContainer>
       <WorkoutContainer>
         <ExercisesList
-          exercises={exercises}
+          exercises={routine.exercises}
           setRoutine={setRoutine}
           inProgress={true}
         />
@@ -144,7 +56,7 @@ const NewWorkout = ({ routineStart }) => {
             setRoutine((previousState) => ({
               ...previousState,
               exercises: [
-                ...exercises,
+                ...routine.exercises,
                 {
                   id: Date.now(),
                   title: exercise.title,
